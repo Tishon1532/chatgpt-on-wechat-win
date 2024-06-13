@@ -1,0 +1,11 @@
+{
+    "action": "replace",
+    "reply_filter": false,
+    "reply_action": "replace",
+    "users": {
+        "abc": {
+            "nickname": "fuck",
+            "violations": 0
+        }
+    }
+}
