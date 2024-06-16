@@ -121,9 +121,9 @@ class ChatChannel(Channel):
                         content = content.replace(match_prefix, "", 1).strip()
                 if context["msg"].is_at:
                     logger.info("[WX]receive group at")
-                    # 校验关键字
+                    # 群用户ID黑名单
                     if context["msg"].actual_user_id in group_userid_black_list:
-                        logger.info("[WX]Is In BlackList")
+                        logger.info("[WX]该用户在黑名单中，不作回复")
                         return None
                     if not conf().get("group_at_off", False):
                         flag = True
