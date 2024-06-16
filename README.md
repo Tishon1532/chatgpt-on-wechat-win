@@ -1,15 +1,20 @@
 # 简介
 
-> **本项目属于chatgpt-on-wechat的win个微版**，基于[WeChat-AIChatbot-WinOnly](https://github.com/chazzjimel/WeChat-AIChatbot-WinOnly)，由于跃迁大佬停更，所以备份一下同时丰富一下原框架功能。
+> **本项目属于chatgpt-on-wechat 的  PC windows端个人微信版**，基于[WeChat-AIChatbot-WinOnly](https://github.com/chazzjimel/WeChat-AIChatbot-WinOnly)，由于跃迁大佬停更，所以备份一下，同时丰富一下原ntchat消息通道监听类型，方便开发对应类型插件。
 > 
 > **本项目仅供学习和技术研究，请勿用于非法用途，如有任何人凭此做何非法事情，均于作者无关，特此声明。**
 
 
+> - **2024.4月开始微信限制低版本登录，为提高本项目使用门槛，故不提供低版本登录解决方案，请自行解决** *
+> 
+> 
+> - **只能在Win平台运行项目！只能在Win平台运行项目！只能在Win平台运行项目!  （ 重要的事情说三遍 ）**
 
 
-项目支持的消息通道及功能如下：
+ - 项目支持功能如下：
 
-- [x] **Wechat** ：PC端的个微消息通道，依赖 [ntchat项目](https://github.com/billyplus/ntchat) ，最高支持Python310环境版本，限[WeChat3.6.0.18版本](https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.6.0.18/WeChatSetup-3.6.0.18.exe)，**只能在Win平台运行项目**。
+- [x] **Wechat** ：PC端的个微消息通道，依赖 [ntchat项目](https://github.com/billyplus/ntchat) ，最高支持Python310环境版本，限[WeChat3.6.0.18版本](https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.6.0.18/WeChatSetup-3.6.0.18.exe)，
+
   - [x] 发送消息：文本/图片/视频/文件/群聊@/链接卡片/GIF/XML
   - [x] 接收消息：几乎涵盖所有消息类型
   - [x] 其他功能：同意加好友请求/创建群/添加好友入群/邀请好友入群/删除群成员/修改群名/修改群公告
@@ -18,18 +23,21 @@
 # **详细功能列表：**
 
 - [x] 聊天对话：私聊、群聊对话，支持fastgpt、openai、azure、文心一言，deepspeek，gemini，claudeapi对话模型通道
-- [x] 语音对话：语音消息可选文字或语音回复，支持 azure, openai等语音模型
-- [x] 插件：chatgpt-on-wechat可以通用，也可自行开发插件
+- [x] 语音对话：语音消息可选文字或语音回复，支持 Azure, Openai，Google等语音模型
+- [x] 插件：chatgpt-on-wechat项目的插件可以复制到本项目来使用，也可自行开发插件
 - [x] 高度定制：依赖fastgpt接口，可实现每个群聊对应不同的应用知识库
 
 # **交流群：**
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
->**2024.06.13：** 新增多种消息类型:小程序，xml，音乐，引用，表情包，视频号.... 新增退群提醒，新增后缀触发，修复 godcmd群聊无法触发管理员命令，同步支持几个大模型，内置部分插件
 
-> **2024.4月开始微信限制低版本登录，为提高本项目使用门槛，故不提供低版本登录解决方案，请自行解决**
 
+>**2024.06.16：** 新增群聊用户黑名单wxid，新增监听微信支付类型，修复收到表情包消息可能导致from_user_nickname为None的问题
+
+>**2024.06.13：** 新增监听多种消息类型:小程序，xml，音乐，引用消息，表情包，视频号，退群....新增后缀触发，修复 godcmd群聊无法触发管理员命令，同步支持几个大模型，内置Countdown插件可搭配timetask使用。优化banwords，累计三次触发敏感词自动拉黑该用户。新增管理员模式插件。
+- ### 待更新内容：
+ - [ ] lcard插件：发送卡片链接的和小程序的示例插件
 
 # 快速开始
 
@@ -43,8 +51,8 @@
 **(1) 下载项目代码：**
 
 ```bash
-git clone https://github.com/chazzjimel/WeChat-AIChatbot-WinOnly
-cd chatgpt-on-wechat/
+git clone https://github.com/Tishon1532/chatgpt-on-wechat-win
+cd chatgpt-on-wechat-win/
 ```
 
 **(2) 安装核心依赖 (必选)：**
@@ -97,6 +105,7 @@ pip3 install azure-cognitiveservices-speech
   "group_chat_prefix": ["@bot"],                              # 群聊时包含该前缀则会触发机器人回复
   "group_chat_suffix": ["bot"],                               # 群聊时包含该后缀则会触发机器人回复
   "group_name_white_list": ["ChatGPT测试群", "ChatGPT测试群2"], # 开启自动回复的群名称列表
+  "group_userid_black_list": ["weixin"],                      # 群聊用户wxid黑名单，bot不会回复这些ID进黑名单的成员      
   "group_chat_in_one_session": ["ChatGPT测试群"],              # 支持会话上下文共享的群名称  
   "image_create_prefix": ["画", "看", "找"],                   # 开启图片回复的前缀
   "conversation_max_tokens": 1000,                            # 支持上下文记忆的最多字符数
@@ -109,10 +118,10 @@ pip3 install azure-cognitiveservices-speech
   # 订阅消息，公众号和企业微信channel中请填写，当被订阅时会自动回复，可使用特殊占位符。目前支持的占位符有{trigger_prefix}，在程序中它会自动替换成bot的触发词。
   "subscribe_msg": "感谢您的关注！\n这里是ChatGPT，可以自由对话。\n支持语音对话。\n支持图片输出，画字开头的消息将按要求创作图片。\n支持角色扮演和文字冒险等丰富插件。\n输入{trigger_prefix}#help 查看详细指令。",
   "accept_friend": false,                                     # 配置itchat和ntchat自动通过好友请求
-  "channel_type": "ntchat",#通道类型，支持：{ntchat,wework,weowrktop}
-  "fast_gpt": false,                                           # 标识模型接口是否是fastgpt
-  "ntchat_smart": false,                                    # 配置ntchat多开，为true时接管当前已登录微信，默认true
-  "wework_smart": false,                                 # 配置wework多开，为true时接管当前已登录企业微信，默认true
+  "channel_type": "ntchat",                                   #通道类型，支持：{ntchat,wework,weowrktop}
+  "fast_gpt": false,                                          # 标识模型接口是否是fastgpt
+  "ntchat_smart": false,                                      # 配置ntchat多开，为true时接管当前已登录微信，默认true
+  "wework_smart": false,                                      # 配置wework多开，为true时接管当前已登录企业微信，默认true
   "fastgpt_list": {
         "R:108864****63985": "fastgpt-1aps*****pg47-64b16a*******181317",
         "R:107******373863": "fastgpt-1aps8*****gni1kpg47-64b168*****cd181267"
@@ -189,21 +198,27 @@ pip install ntchat
 
 
 ## 硬核功能展示
+- 以下功能均基于本项目新增监听类型后，通过编写插件实现。
+- #### 以下某些插件功能来自于逆向练习项目，不开源，请自行研究。
 
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/1.jpg)
+<table>
+  <tr>
+    <td><img src="docs/images/8.jpg" width="400px" alt="图片" /></td>
+    <td><img src="docs/images/5.jpg" width="400px" alt="图片" /></td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/4.jpg" width="400px" alt="图片" /></td>  
+    <td><img src="docs/images/3.jpg" width="400px" alt="图片" /></td>
+  <tr>
+    <td><img src="docs/images/6.jpg" width="400px" alt="图片" /></td>
+    <td><img src="docs/images/1.jpg" width="400px" alt="图片" /></td>
+  </tr>
+  </tr>
+  <tr>
+    <td><img src="docs/images/9.jpg" width="400px" alt="图片" /></td>    
+    <td><img src="docs/images/2.jpg" width="400px" alt="图片" /></td> 
+  </tr>
+</table>
 
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/2.jpg)
 
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/3.jpg)
-
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/4.jpg)
-
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/5.jpg)
-
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/6.jpg)
-
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/7.jpg)
-
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/8.jpg)
-
-![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/9.jpg)
+个人精力和水平有限，项目还有许多不足，欢迎提出 issues 或 pr。期待你的贡献。
