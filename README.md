@@ -126,8 +126,6 @@ pip3 install azure-cognitiveservices-speech
         "R:108864****63985": "fastgpt-1aps*****pg47-64b16a*******181317",
         "R:107******373863": "fastgpt-1aps8*****gni1kpg47-64b168*****cd181267"
     },							# 每个群聊ID配置对应的key即可实现单群单知识库，未配置的默认
-  "wework_http": "http://127.0.0.1:8000",  # weworktop通道http接口地址，默认127.0.0.1:8000
-  "wework_callback_port": 8001,  # weworktop回调端口
   "voice_openai_api_key": "",		# 使用了fasgpt仍然有openai语音识别需求的，要在这里配置一下openai的参数
   "voice_openai_api_base": "",		# 使用了fasgpt仍然有openai语音识别需求的，要在这里配置一下openai的参数
  }
