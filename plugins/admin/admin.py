@@ -51,10 +51,8 @@ class Admin(Plugin):
 
     def on_handle_context(self, e_context: EventContext):
         if e_context["context"].type not in [
-            ContextType.TEXT,
-            ContextType.JOIN_GROUP,
-            ContextType.PATPAT,
-            ContextType.QUOTE
+            ContextType.TEXT,ContextType.IMAGE_CREATE,
+            ContextType.PATPAT,ContextType.QUOTE
         ]:
             return
         user_id = e_context['context']['msg'].from_user_id
