@@ -139,6 +139,13 @@ class NtchatMessage(ChatMessage):
                 emoji_path=get_emoji_file(data["raw_msg"])
                 self.content = emoji_path
                 self._prepare_fn = lambda: None
+                if self.is_group:
+                    directory = os.path.join(os.getcwd(), "tmp")
+                    file_path = os.path.join(directory, "wx_room_members.json")
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        room_members = json.load(file)
+                    self.from_user_nickname = get_display_name_or_nickname(room_members, data.get('room_wxid'),
+                                                                           self.from_user_id)
             elif wechat_msg["type"] == 11054:  # 分享链接消息类型
                 xmlContent = data["raw_msg"]
                 from_wxid = data["from_wxid"]
@@ -150,7 +157,7 @@ class NtchatMessage(ChatMessage):
                 if "gh_"in from_wxid and name.text != "微信支付" :
                     self.ctype = ContextType.MP_LINK
                     self.content = xmlContent
-                elif name and name.text == "微信支付":
+                elif name.text == "微信支付":
                     self.content = process_payment_info(msg.text)
                     # print(self.content)
                     self.ctype = ContextType.WCPAY
