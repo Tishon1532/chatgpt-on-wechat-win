@@ -154,15 +154,15 @@ class NtchatMessage(ChatMessage):
                 msg = appmsg.find("des")
                 type = appmsg.find("type")
                 name = root.find(".//mmreader/category/name")
-                if "gh_"in from_wxid and name.text != "微信支付" :
-                    self.ctype = ContextType.MP_LINK
+                name_text = name.text if name is not None else None
+                if "gh_"in from_wxid and name_text != "微信支付" :
+                    self.ctype = ContextType.MP_LINK #关注的公众号主动推送的文章链接类型
                     self.content = xmlContent
-                elif name.text == "微信支付":
+                elif name_text == "微信支付":
                     self.content = process_payment_info(msg.text)
-                    # print(self.content)
                     self.ctype = ContextType.WCPAY
                 else:
-                    self.ctype = ContextType.LINK
+                    self.ctype = ContextType.LINK #用户转发分享的文章链接类型
                     self.content = xmlContent
             elif wechat_msg["type"] == 11055:  # 需要缓存文件的消息类型
                 self.ctype = ContextType.FILE
