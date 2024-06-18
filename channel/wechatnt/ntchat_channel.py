@@ -207,7 +207,7 @@ class NtchatChannel(ChatChannel):
     @time_checker
     @_check
     def handle_group(self, cmsg: ChatMessage):
-        print(cmsg)     ##重要~~~！！！！！群聊时测试监听消息专用
+        # print(cmsg)     ##重要~~~！！！！！群聊时测试监听消息专用
         root_dir=os.path.abspath(os.path.join(os.path.dirname(__file__),"..\.."))
         base_dir = root_dir+'\plugins\plugins.json'
         with open(base_dir, "r", encoding="utf-8") as f:
