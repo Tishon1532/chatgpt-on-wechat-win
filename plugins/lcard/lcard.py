@@ -37,28 +37,6 @@ class lcard(Plugin):
         _user_id = e_context['context']['msg'].from_user_id  #####
         to_user_id = e_context['context']['msg'].to_user_id
         logger.debug("[Francis] on_handle_context. content: %s" % content)
-        """
-
-        
-        群聊：def handle_group(self, cmsg: ChatMessage):         # 此函数下取消注释print(cmsg)
-        私聊：def handle_single(self, cmsg: ChatMessage):        # 此函数下取消注释print(cmsg)
-        
-        如何知道某个卡片类型的xml结构是什么样子？
-        
-        答：取消以上注释后，即可开启监听日志，必须使用bot账号转发一下你想发送的卡片，即可在日志看到相关xml
-        
-        已知直播，视频号，链接卡片，小程序，聊天记录，音乐卡片类型全是xml
-        自己转发你想要发送的卡片类型，即可获得该卡片的xml，替换xml里相关参数，ReplyType.LINK发送xml即可实现发送该卡片
-
-        小程序没有图片？
-        答：小程序的图片有时效性，需要定期更换图片的url，觉得麻烦可以不换，不影响小程序打开。
-        
-        默认使用官方QQ音乐的卡片播放！这个卡片类型只能播放官方的QQ音乐歌曲（不能免vip播放）
-        
-        可以使用也可以使用app_card.py下的def mp3_linK()xml结构
-        这个xml结构可播放第三方音乐url（可以自己去找音乐解析api，解析VIP歌曲替换相关url实现播放VIP歌曲），不过样式不如官方的好看
-        
-        """
         #发送各种榜单
         trending_pinyin = {
             "百度热榜": "baidu",
