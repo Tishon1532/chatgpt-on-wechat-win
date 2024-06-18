@@ -1,0 +1,281 @@
+# encoding:utf-8
+import datetime
+import threading
+import time
+from datetime import datetime
+import plugins
+from bridge.context import ContextType
+from bridge.reply import Reply, ReplyType
+from channel.chat_message import ChatMessage
+import plugins.lcard.app_card as fun
+from plugins import *
+import requests
+
+@plugins.register(
+    name="lcard",
+    desire_priority=100,
+    namecn="lcard",
+    desc="发送卡片式链接和小程序",
+    version="0.2.1",
+    author="Francis",
+)
+class lcard(Plugin):
+    def __init__(self):
+        super().__init__()
+        self.json_path = os.path.join(os.path.dirname(__file__), 'config.json')
+        self.handlers[Event.ON_HANDLE_CONTEXT] = self.on_handle_context
+        logger.info("[lcard] inited")
+
+    def on_handle_context(self, e_context: EventContext):
+        if e_context["context"].type not in [
+            ContextType.TEXT
+        ]:
+            return
+        context = e_context["context"]
+        isgroup = context.get("isgroup", False)
+        content = context.content
+        _user_id = e_context['context']['msg'].from_user_id  #####
+        to_user_id = e_context['context']['msg'].to_user_id
+        logger.debug("[Francis] on_handle_context. content: %s" % content)
+        """
+
+        
+        群聊：def handle_group(self, cmsg: ChatMessage):         # 此函数下取消注释print(cmsg)
+        私聊：def handle_single(self, cmsg: ChatMessage):        # 此函数下取消注释print(cmsg)
+        
+        如何知道某个卡片类型的xml结构是什么样子？
+        
+        答：取消以上注释后，即可开启监听日志，必须使用bot账号转发一下你想发送的卡片，即可在日志看到相关xml
+        
+        已知直播，视频号，链接卡片，小程序，聊天记录，音乐卡片类型全是xml
+        自己转发你想要发送的卡片类型，即可获得该卡片的xml，替换xml里相关参数，ReplyType.LINK发送xml即可实现发送该卡片
+
+        小程序没有图片？
+        答：小程序的图片有时效性，需要定期更换图片的url，觉得麻烦可以不换，不影响小程序打开。
+        
+        默认使用官方QQ音乐的卡片播放！这个卡片类型只能播放官方的QQ音乐歌曲（不能免vip播放）
+        
+        可以使用也可以使用app_card.py下的def mp3_linK()xml结构
+        这个xml结构可播放第三方音乐url（可以自己去找音乐解析api，解析VIP歌曲替换相关url实现播放VIP歌曲），不过样式不如官方的好看
+        
+        """
+        #发送各种榜单
+        trending_pinyin = {
+            "百度热榜": "baidu",
+            "今日热榜": "top",
+            "今日热文": "top",
+            "热门新闻": "top",
+            "今日热门新闻": "top",
+            "今日的热门新闻": "top",
+            "知乎热榜": "zhihu",
+            "抖音热榜": "douyin",
+            "掘金热榜": "juejin",
+            "吾爱热榜": "52pojie",
+            "网易热榜": "ne-news",
+            "豆瓣热榜": "douban-media",
+            "今日头条":"toutiao",
+            "github热榜":"github",
+            "澎湃新闻":"thepaper",
+            "小红书":"xiaohongshu",
+            "微博热榜": "weibo",
+            "b站热榜": "bilibili",
+        }
+        content = content.strip()
+        reply = Reply()
+        if content in trending_pinyin:
+            trending = trending_pinyin[content]
+            url = f"https://rebang.today/home?tab={trending}"
+            gh_id="gh_7d739cf5e919"
+            username="Francis"
+            title = "今日热榜-全站榜单 🏆\n🅰🅸 ℝ𝕖𝕓𝕒𝕟𝕘.𝕋𝕠𝕕𝕒𝕪"
+            desc ="涵盖：今日头条、抖音、Github、吾爱、掘金、bilibili、百度、知乎、网易、微博...\n追踪全网热点、简单高效阅读。"
+            image_url="https://mmbiz.qpic.cn/sz_mmbiz_jpg/RiacFDBX14xAWVSLByXwA4pg6jickFZQT09smokU52wziaZhibhtkSIBll5wKiawKrDmXWwf1YYGq4ZiaJYGfViaDZDrw/300?wxtype=jpeg&amp;wxfrom=401"
+            xml_link = fun.get_xml(url, gh_id, username, title, desc, image_url)
+            reply.type = ReplyType.LINK
+            reply.content = xml_link
+        elif content == "新闻直播间":
+            video_mp = fun.cctv13_live_xml()
+            reply = Reply()
+            reply.type = ReplyType.LINK
+            reply.content = video_mp
+
+        elif content.startswith("点歌"):
+            keyword = content[2:].replace(" ", "").strip()
+            url = f"https://api.52vmy.cn/api/music/qq?msg={keyword}&n=1"
+            resp1 = requests.get(url)
+            data = resp1.json()
+            music_parse = data["data"]
+            song_id = music_parse["songid"]
+            singer=music_parse["singer"]
+            song=music_parse["song"]
+            picture=music_parse["picture"]
+            if song_id :
+                #以下是xml示例，替换相关参数
+                card_app = f"""<msg>
+<fromusername>{to_user_id}</fromusername>
+<scene>0</scene>
+<commenturl></commenturl>
+<appmsg appid="wx5aa333606550dfd5" sdkver="0">
+<title>{song}</title>
+<des>{singer}</des>
+    <action>view</action>
+    <type>3</type>
+    <showtype>0</showtype>
+    <content></content>
+    <url>http://c.y.qq.com/v8/playsong.html?songmid={song_id}</url>
+    <dataurl>http://wx.music.tc.qq.com/C4000015IWzW2NC8oN.m4a?guid=2000000280&amp;vkey=D42EDA8187C9697F31ED99CD9B3635DFBD3DAE29E4E8CF0EA549F2F247464072D17D5516DBBA34BB26D906D69E5E28239E0D557EEC5311BC&amp;uin=0&amp;fromtag=30280&amp;trace=772d0804e4366763</dataurl>
+    <lowurl></lowurl>
+    <lowdataurl></lowdataurl>
+    <recorditem></recorditem>
+    <thumburl>{picture}</thumburl>
+    <messageaction></messageaction>
+    <md5>fe75b445564bdf938ea28b455f0ccf43</md5>
+    <extinfo></extinfo>
+    <sourceusername></sourceusername>
+    <sourcedisplayname></sourcedisplayname>
+    <commenturl></commenturl>
+    <appattach>
+        <totallen>0</totallen>
+        <attachid></attachid>
+        <emoticonmd5></emoticonmd5>
+        <fileext></fileext>
+        <cdnthumburl>{picture}</cdnthumburl>
+        <aeskey></aeskey>
+        <cdnthumbaeskey></cdnthumbaeskey>
+        <encryver>1</encryver>
+        <cdnthumblength>24237</cdnthumblength>
+        <cdnthumbheight>500</cdnthumbheight>
+        <cdnthumbwidth>500</cdnthumbwidth>
+    </appattach>
+    <weappinfo>
+        <pagepath></pagepath>
+        <username></username>
+        <appid></appid>
+        <appservicetype>0</appservicetype>
+    </weappinfo>
+    <websearch />
+</appmsg>
+<appinfo>
+    <version>1</version>
+    <appname>QQ音乐</appname>
+</appinfo>
+</msg>"""
+                reply.type = ReplyType.LINK
+                reply.content = card_app
+            else:
+                reply.type = ReplyType.TEXT
+                reply.content = "未找到该歌曲"
+
+        #发送天气链接卡片，数据链接msn天气
+        elif content.endswith("天气"):
+            import  re
+            weather_match = re.search(r"(.+?)(的)?天气", content)
+            city_name = weather_match.group(1) if weather_match else "成都"
+            url = f"https://api.pearktrue.cn/api/weather/?city={city_name}&id=1"
+            response = requests.get(url)
+            if response.status_code == 200:
+                datas = json.loads(response.text)["data"]
+                print(datas)
+                if all(isinstance(data, dict) for data in datas):
+                    first_data_weather = datas[0]['weather']
+                    second_data_weather = datas[1]['weather']
+                    first_data_temperature = datas[0]['temperature']
+                    second_data_temperature = datas[1]['temperature']
+                    gh_id = "gh_7d739cf5e919"
+                    username = "Francis"
+                    title = f"{city_name}今天\n天气：{first_data_weather}  气温：{first_data_temperature}"
+                    desc = f"\n明天：{second_data_weather}  \n气温：{second_data_temperature}"
+                    weather_url = "https://www.msn.cn/zh-cn/weather/"
+                    image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/xuic5bNARavt67O3KvoXqjJJanKwRkfIiaJT6Oiavia0icVgC9DWInofCKA655AuicqgdBukd36nFXTqHBUUvfc0uCCQ/300?wxtype=jpeg&amp;wxfrom=401"
+                    xml_link = fun.get_xml(weather_url, gh_id, username, title, desc, image_url)
+                    reply.type = ReplyType.LINK
+                    reply.content = xml_link
+                else:
+                    reply = Reply()
+                    reply.type = ReplyType.TEXT
+                    reply.content = f"请按格式输入：城市+天气\n例如：北京天气"
+
+        elif content.startswith("我要吃") or content.startswith("我想吃")  :
+            keyword = content[3:].strip()
+            xml_app = fun.woyaochi_app(keyword)
+            reply.type = ReplyType.MINIAPP
+            reply.content = xml_app
+        elif content.endswith("怎么做") or content.endswith("教程") or content.endswith("的教程"):
+            global dish_name
+            if content.endswith("怎么做"):
+                dish_name = content[:-3].strip()
+            url = f"https://m.xiachufang.com/search/?keyword={dish_name}"
+            gh_id = "gh_fbfa5dacde93"
+            username = "美食教程"
+            title = "                美食教程"
+            desc = f"\n🔍️ {dish_name}\n\n\n                    xiachufang.com"
+            image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/Uc03FJicJseLq0yQ4JqqiaIIlDB7KuiaNY7ia14ZGCfDeVXktfI9kU6ZGu4659Y3n9CVhP5oKEIYkvXJgDg9WRia5Ng/300?wx_fmt=jpeg&amp;wxfrom=1"
+            xml_link = fun.get_xml(url, gh_id, username, title, desc, image_url)
+            reply.type = ReplyType.LINK
+            reply.content = xml_link
+
+        huoche_keywords = ["火车票", "高铁票", "动车票"]
+        # 用于匹配以火车票关键词结尾的正则表达式
+        pattern = r"(\d{4}\.\d{1,2}\.\d{1,2})?\s*(.+)\s*到\s*(.+?)(?:的)?\s*(" + '|'.join(huoche_keywords) + ")$"
+
+        import re
+        match = re.search(pattern, content)
+
+        if match:
+            date, departure, arrival, ticket_type = match.groups()
+            departure = departure.strip()  # 去除可能存在的多余空格
+            arrival = arrival.strip()  # 去除可能存在的多余空格
+            if date:
+                date = datetime.strptime(date, "%Y.%m.%d").strftime("%Y-%m-%d")
+            else:
+                date = datetime.now().strftime("%Y-%m-%d")
+            # 假设以下是调用查询火车票的函数，返回查询结果
+            card_app = fun.huochepiao_app(content,departure, arrival, date)  # 你需要用正确的函数替换这里
+            # 假设以下代码设置用于回复用户的信息
+            reply.type = ReplyType.MINIAPP
+            reply.content = card_app
+
+        pattern = r"(\d{4}\.\d{1,2}\.\d{1,2})?\s*(.+)\s*到\s*(.+?)(?:的)?\s*机票$"
+        match = re.search(pattern, content)
+
+        if match:
+            # 提取日期、出发城市和到达城市
+            date, departure, arrival = match.groups()
+            departure = departure.strip()  # 去除可能存在的多余空格
+            arrival = arrival.strip()  # 去除可能存在的多余空格
+            # 转换日期格式
+            if date:
+                date = datetime.strptime(date, "%Y.%m.%d").strftime("%Y-%m-%d")
+            else:
+                date = datetime.now().strftime("%Y-%m-%d")
+            with open(self.json_path, encoding='utf-8') as f:
+                config = json.load(f)
+            station_list = config.get("station_list", [])
+            departure_code = None
+            arrival_code = None
+            for station in station_list:
+                print(f"Checking station: {station['name']}")  # 输出正在检查的站点名称
+                if station["name"] == departure:
+                    departure_code = station["code"]
+                    print(f"Found departure code: {departure_code}")  # 确认找到出发地代码
+                if station["name"] == arrival:
+                    arrival_code = station["code"]
+                    print(f"Found arrival code: {arrival_code}")  # 确认找到目的地代码
+            reply = Reply()
+            if departure_code and arrival_code:
+                card_app = fun.air_tickets_app(content, departure_code, departure, arrival_code, arrival, date)
+                reply.type = ReplyType.MINIAPP
+                reply.content = card_app
+            else:
+                reply.type = ReplyType.TEXT
+                reply.content = "未查到该行程机票信息"
+        e_context["reply"] = reply
+        e_context.action = EventAction.BREAK_PASS  # 事件结束，并跳过处理context的默认逻辑
+
+
+    def get_help_text(self, verbose=False, **kwargs):
+        help_text = "发送卡片式链接和小程序"
+        if not verbose:
+            return help_text
+        help_text = "发送卡片式链接和小程序,可以实现卡片天气，卡片点歌，火车飞机票查询"
+        return help_text
