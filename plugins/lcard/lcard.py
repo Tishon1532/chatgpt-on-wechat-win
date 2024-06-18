@@ -173,10 +173,10 @@ class lcard(Plugin):
 
         elif content.startswith("我要吃") or content.startswith("我想吃")  :
             keyword = content[3:].strip()
-            xml_app = fun.woyaochi_app(keyword)
+            xml_app = fun.woyaochi_app(to_user_id,keyword)
             reply.type = ReplyType.MINIAPP
             reply.content = xml_app
-        elif content.endswith("怎么做") or content.endswith("教程") or content.endswith("的教程"):
+        elif content.endswith("怎么做"):
             global dish_name
             if content.endswith("怎么做"):
                 dish_name = content[:-3].strip()
@@ -239,7 +239,7 @@ class lcard(Plugin):
                     print(f"Found arrival code: {arrival_code}")  # 确认找到目的地代码
             reply = Reply()
             if departure_code and arrival_code:
-                card_app = fun.air_tickets_app(content, departure_code, departure, arrival_code, arrival, date)
+                card_app = fun.air_tickets_app(to_user_id,content, departure_code, departure, arrival_code, arrival, date)
                 reply.type = ReplyType.MINIAPP
                 reply.content = card_app
             else:

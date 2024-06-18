@@ -192,7 +192,7 @@ def huochepiao_app(math,toCityName,fromcity,data):
     </appinfo>
 </msg>"""
     return card_app
-def woyaochi_app(content):
+def woyaochi_app(to_user_id,content):
     card_app=f""""<?xml version="1.0"?>
 <msg>
         <appmsg appid="" sdkver="0">
@@ -232,7 +232,7 @@ def woyaochi_app(content):
                         <weapppagethumbrawurl><![CDATA[https://p0.meituan.net/travelcube/f722637dc1686b4cdc27a9614d84863c52486.png@420w_340h_1e_1c_1l]]></weapppagethumbrawurl>
                 </weappinfo>
         </appmsg>
-        <fromusername>YiYiwanan-1314</fromusername>
+        <fromusername>{to_user_id}</fromusername>
         <scene>0</scene>
         <appinfo>
                 <version>1</version>
@@ -241,9 +241,9 @@ def woyaochi_app(content):
         <commenturl></commenturl>
 </msg>"""
     return card_app
-def mp3_linK():
+def mp3_linK(to_user_id,url=None,thumburl=None):
     card_app=f""""<msg>
-    <fromusername>YiYiwanan-1314</fromusername>
+    <fromusername>{to_user_id}</fromusername>
     <scene>0</scene>
     <commenturl></commenturl>
     <appmsg appid="" sdkver="0">
@@ -286,9 +286,9 @@ def mp3_linK():
 </msg>"""
     return card_app
 
-def air_tickets_app(content,departure_code,departure_city,arrive_code,arrive_city,date):
+def air_tickets_app(to_user_id,content,departure_code,departure_city,arrive_code,arrive_city,date):
     card_app=f""""<msg>
-    <fromusername>YiYiwanan-1314</fromusername>
+    <fromusername>{to_user_id}</fromusername>
     <scene>0</scene>
     <commenturl></commenturl>
     <appmsg appid="" sdkver="0">
