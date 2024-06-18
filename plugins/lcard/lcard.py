@@ -73,7 +73,6 @@ class lcard(Plugin):
             reply.content = xml_link
         elif content == "新闻直播间":
             video_mp = fun.cctv13_live_xml()
-            reply = Reply()
             reply.type = ReplyType.LINK
             reply.content = video_mp
 
@@ -169,7 +168,6 @@ class lcard(Plugin):
                     reply.type = ReplyType.LINK
                     reply.content = xml_link
                 else:
-                    reply = Reply()
                     reply.type = ReplyType.TEXT
                     reply.content = f"请按格式输入：城市+天气\n例如：北京天气"
 
