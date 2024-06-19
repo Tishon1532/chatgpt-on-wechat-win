@@ -35,14 +35,12 @@ class Bridge(object):
             self.btype["chat"] = const.XUNFEI
         if model_type in [const.GEMINI]:
             self.btype["chat"] = const.GEMINI
-        if model_type in ["claude"]:
-            self.btype["chat"] = const.CLAUDEAI
-        self.bots = {}
         if model_type in [const.CLAUDE3]:
             self.btype["chat"] = const.CLAUDEAPI
-
         if model_type in ["deepseek-chat", "deepseek-coder", " DeepSeek-V2"]:
             self.btype["chat"] = const.DEEPSEEK
+        self.bots = {}
+        self.chat_bots = {}
 
 
     def get_bot(self, typename):
@@ -72,6 +70,12 @@ class Bridge(object):
 
     def fetch_translate(self, text, from_lang="", to_lang="en") -> Reply:
         return self.get_bot("translate").translate(text, from_lang, to_lang)
+
+    def find_chat_bot(self, bot_type: str):
+        if self.chat_bots.get(bot_type) is None:
+            self.chat_bots[bot_type] = create_bot(bot_type)
+        return self.chat_bots.get(bot_type)
+
 
     def reset_bot(self):
         """

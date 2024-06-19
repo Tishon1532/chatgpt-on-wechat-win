@@ -46,12 +46,10 @@ def create_bot(bot_type):
         from bot.xunfei.xunfei_spark_bot import XunFeiBot
         return XunFeiBot()
 
-    elif bot_type == const.CLAUDEAI:
-        from bot.claude.claude_ai_bot import ClaudeAIBot
-        return ClaudeAIBot()
     elif bot_type == const.CLAUDEAPI:
         from bot.claudeapi.claude_api_bot import ClaudeAPIBot
         return ClaudeAPIBot()
+
     elif bot_type == const.GEMINI:
         from bot.gemini.google_gemini_bot import GoogleGeminiBot
         return GoogleGeminiBot()
