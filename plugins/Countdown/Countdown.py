@@ -50,6 +50,7 @@ class Countdown(Plugin):
         logger.info("[Countdown] inited")
         self.taskManager = TaskManager()
         self.damin_id = "wwwwwwoooooooooooo" #管理员ID，需要自行修改
+        #这个列表添加的日期会倒计时解说会自动更新,下一年也无需手动设置,这个列表可以自行增减
         self.default_tasks = [
             ("001", "2024-01-01", "元旦节", "距离元旦节还有x天"),
             ("002", "2024-02-14", "情人节", "距离情人节还有x天"),
@@ -60,8 +61,8 @@ class Countdown(Plugin):
             ("007", "2024-04-01", "愚人节", "距离愚人节还有x天"),
             ("008", "2024-05-12", "母亲节", "距离母亲节还有x天"),
             ("009", "2024-05-20", "520", "距离520还有x天"),
-            ("010", "2023-06-01", "儿童节", "距离儿童节还有x天"),
-            ("011", "2023-06-16", "父亲节", "距离父亲节还有x天"),
+            ("010", "2024-06-01", "儿童节", "距离儿童节还有x天"),
+            ("011", "2024-06-16", "父亲节", "距离父亲节还有x天"),
             ("012", "2024-06-18", "618", "距离618购物节还有x天"),
             ("013", "2024-07-01", "建党节", "距离建党节还有x天"),
             ("014", "2024-08-01", "建军节", "距离建军节还有x天"),
@@ -114,7 +115,60 @@ class Countdown(Plugin):
             ("127", (7, 7), "七夕节", "距离七夕节还有x天"),
         ]
         self.taskManager.update_default_tasks(self.default_tasks, self.lunar_tasks)
+        self.update_task_date_if_needed()  # 添加检查日期更新函数
 
+    def update_task_date_if_needed(self):
+        tasks = self.taskManager.readTask()
+        today = datetime.today().date()
+        is_updated = False
+
+        for task_id, task_info in tasks.items():
+            # 检查是否在default_tasks中
+            if any(task_id == default_task[0] for default_task in self.default_tasks):
+                task_date = datetime.strptime(task_info[1], "%Y-%m-%d").date()
+                if task_date < today:
+                    task_date = task_date.replace(year=today.year + 1)
+                    updated_task = (task_info[0], task_date.strftime("%Y-%m-%d"), task_info[2], task_info[3])
+                    tasks[task_id] = updated_task
+                    is_updated = True
+            # 检查是否在lunar_tasks中
+            elif any(task_id == lunar_task[0] for lunar_task in self.lunar_tasks):
+                lunar_date_tuple = next(lunar_task[1] for lunar_task in self.lunar_tasks if lunar_task[0] == task_id)
+                solar_date = self.taskManager.lunar_to_solar(today.year, *lunar_date_tuple)
+                if solar_date < today:
+                    solar_date = self.taskManager.lunar_to_solar(today.year + 1, *lunar_date_tuple)
+                updated_task = (task_info[0], solar_date.strftime("%Y-%m-%d"), task_info[2], task_info[3])
+                tasks[task_id] = updated_task
+                is_updated = True
+
+        if is_updated:
+            JsonOP().saveJson(tasks)  # 确保保存更新后的任务
+    def update_default_tasks(self, default_tasks, lunar_tasks):
+        current_year = datetime.now().year
+        updated_tasks = []
+        for task_id, date_str, remark, message in default_tasks:
+            date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+            if date_obj < datetime.now():
+                date_obj = date_obj.replace(year=current_year + 1)
+            new_date_str = date_obj.strftime("%Y-%m-%d")
+            updated_tasks.append((task_id, new_date_str, remark, message))
+
+        task_dict = self.readTask()
+        for task_id, date_str, remark, message in updated_tasks:
+            if task_id not in task_dict:
+                task_info = (task_id, date_str, remark, message)
+                task_model = Model(task_info, use_random_id=False)
+                self.addTask(task_model)
+
+        for task_id, (lunar_month, lunar_day), remark, message in lunar_tasks:
+            solar_date = self.lunar_to_solar(current_year, lunar_month, lunar_day)
+            if solar_date < date.today():
+                solar_date = self.lunar_to_solar(current_year + 1, lunar_month, lunar_day)
+            new_date_str = solar_date.strftime("%Y-%m-%d")
+            if task_id not in task_dict:
+                task_info = (task_id, new_date_str, remark, message)
+                task_model = Model(task_info, use_random_id=False)
+                self.addTask(task_model)
     def on_handle_context(self, e_context: EventContext):
             if e_context["context"].type not in [ContextType.TEXT]:
                 return

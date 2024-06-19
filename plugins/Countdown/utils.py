@@ -87,13 +87,11 @@ class TaskManager(object):
     def update_default_tasks(self, default_tasks, lunar_tasks):
         current_year = datetime.now().year
         updated_tasks = []
-
         for task_id, date_str, remark, message in default_tasks:
             date_obj = datetime.strptime(date_str, "%Y-%m-%d")
-            new_date_obj = date_obj.replace(year=current_year)
-            if new_date_obj < datetime.now():
-                new_date_obj = new_date_obj.replace(year=current_year + 1)
-            new_date_str = new_date_obj.strftime("%Y-%m-%d")
+            if date_obj < datetime.now():
+                date_obj = date_obj.replace(year=current_year + 1)
+            new_date_str = date_obj.strftime("%Y-%m-%d")
             updated_tasks.append((task_id, new_date_str, remark, message))
 
         task_dict = self.readTask()
@@ -118,41 +116,36 @@ class TaskManager(object):
         solar_date = Converter.Lunar2Solar(lunar_date)
         # 确保返回的是 datetime.date 类型
         return date(solar_date.year, solar_date.month, solar_date.day)
+
+
 # Json文件读写
 class JsonOP(object):
     __file_name = "CountdownTask.json"
-    __dir_name = os.path.dirname(__file__)
-    __file_path = os.path.join(__dir_name, __file_name)
 
     def __init__(self):
         super().__init__()
+        self.__file_path = os.path.join(os.path.dirname(__file__), self.__file_name)
         if not os.path.exists(self.__file_path):
             self.saveJson({})
             logger.info(f"创建任务文件{self.__file_path}")
 
     def readJson(self):
-        dir_name = os.path.dirname(__file__)
-        self.__file_path = os.path.join(dir_name, self.__file_path)
-        # 尝试读json文件
         try:
-            with open(self.__file_path, "r",encoding="utf-8") as file:
+            with open(self.__file_path, "r", encoding="utf-8") as file:
                 tasks = json.load(file)
                 return tasks
         except:
             return self.resetJson()
 
     def saveJson(self, tasks: dict = {}):
-        dir_name = os.path.abspath(__file__)
-        self.__file_path = os.path.join(dir_name, self.__file_path)
-        # 尝试写json文件
         try:
-            with open(self.__file_path, "w",encoding="utf-8") as file:
+            with open(self.__file_path, "w", encoding="utf-8") as file:
                 json.dump(tasks, file, ensure_ascii=False, indent=4)
         except:
             self.resetJson()
 
     def resetJson(self):
-        with open(self.__file_path, "r",encoding="utf-8") as file:
+        with open(self.__file_path, "r", encoding="utf-8") as file:
             deleted_file = file.read()
             # 出错重置
             self.saveJson({})
