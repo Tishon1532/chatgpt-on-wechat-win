@@ -22,7 +22,7 @@
 
 # **详细功能列表：**
 
-- [x] 聊天对话：私聊、群聊对话，支持fastgpt、openai、azure、文心一言，deepspeek，gemini，claudeapi对话模型通道
+- [x] 聊天对话：私聊、群聊对话，支持fastgpt、linkai、openai、azure、文心一言，deepspeek，gemini，claudeapi对话模型通道
 - [x] 语音对话：语音消息可选文字或语音回复，支持 Azure, Openai，Google等语音模型
 - [x] 插件：chatgpt-on-wechat项目的插件可以复制到本项目来使用，也可自行开发插件
 - [x] 高度定制：依赖fastgpt接口，可实现每个群聊对应不同的应用知识库
@@ -31,7 +31,9 @@
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
->**2024.06.18：** 新增lcard插件可发送卡片天气，卡片音乐，小程序。内置群聊邀请插件，私聊下发送加群可直接邀请进群。
+>**2024.06.20：** 适配COW的linkai bot,新增支持模型gpt-4o,godcmd增加全局管理员,适配linkai插件,优化Countdown插件.
+
+>**2024.06.18：** 新增lcard插件可发送卡片天气，卡片音乐，小程序。内置群聊邀请插件，私聊下发送`加群`可直接邀请进群。
 
 >**2024.06.16：** 新增群聊用户黑名单wxid，新增监听微信支付类型，修复收到表情包消息可能导致from_user_nickname为None的问题，内置bridge_room插件
 
