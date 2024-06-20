@@ -1,3 +1,4 @@
+import re
 import plugins
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
@@ -71,10 +72,11 @@ class LinkAI(Plugin):
 
         if (context.type == ContextType.LINK and self._is_summary_open(context)) or \
                 (context.type == ContextType.TEXT and self._is_summary_open(context) and LinkSummary().check_url(context.content)):
-            if not LinkSummary().check_url(context.content):
+            url = re.findall(r"<url>(.*?)<\/url>", context.content)[0]
+            if not LinkSummary().check_url(url):
                 return
             _send_info(e_context, "正在为你加速生成摘要，请稍后")
-            res = LinkSummary().summary_url(context.content)
+            res = LinkSummary().summary_url(url)
             if not res:
                 _set_reply_text("因为神秘力量无法获取文章内容，请稍后再试吧~", e_context, level=ReplyType.TEXT)
                 return
@@ -196,7 +198,7 @@ class LinkAI(Plugin):
             return False
         if context.kwargs.get("isgroup") and not self.sum_config.get("group_enabled"):
             return False
-        support_type = self.sum_config.get("type") or ["FILE", "SHARING"]
+        support_type = self.sum_config.get("type") or ["FILE", "LINK"]
         if context.type.name not in support_type and context.type.name != "TEXT":
             return False
         return True

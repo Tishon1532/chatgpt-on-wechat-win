@@ -189,9 +189,6 @@ class Godcmd(Plugin):
 
         config_path = os.path.join(os.path.dirname(__file__), "config.json")
         gconf = super().load_config()
-        # print("opopop")
-        # print(gconf)
-        # print("opopop")
         if not gconf:
             if not os.path.exists(config_path):
                 gconf = {"password": "", "admin_users": []}
@@ -212,7 +209,7 @@ class Godcmd(Plugin):
         self.password = gconf["password"]
         self.admin_users = gconf["admin_users"]  # 预存的管理员账号，这些账号不需要认证。itchat的用户名每次都会变，不可用
         self.isrunning = True  # 机器人是否运行中
-
+        global_config["admin_users"] = self.admin_users # 全局ntchat管理员ID
         self.handlers[Event.ON_HANDLE_CONTEXT] = self.on_handle_context
         logger.info("[Godcmd] inited")
 
@@ -234,11 +231,7 @@ class Godcmd(Plugin):
                 e_context["reply"] = reply
                 e_context.action = EventAction.BREAK_PASS
                 return
-            # msg = e_context['context']['msg']
             channel = e_context["channel"]
-            # print("wwww")
-            # print(e_context["context"])
-            # print("wwwwww")
             isgroup = e_context["context"].get("isgroup", False)
             if isgroup:
                 user = e_context["context"]["msg"].from_user_id
