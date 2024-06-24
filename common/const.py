@@ -23,4 +23,4 @@ WHISPER_1 = "whisper-1"
 TTS_1 = "tts-1"
 TTS_1_HD = "tts-1-hd"
 GPT35 = "gpt-3.5-turbo"
-MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4", "wenxin", "wenxin-4", "xunfei", "claude", "gpt-4-turbo","claude-3-opus-20240229", GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o]
+MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4", "wenxin", "wenxin-4", "xunfei", "gpt-4-turbo","claude", "claude-3-haiku", "claude-3-sonnet", "claude-3-opus", "claude-3-opus-20240229", "claude-3.5-sonnet", GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o]
