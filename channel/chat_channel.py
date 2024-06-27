@@ -245,10 +245,13 @@ class ChatChannel(Channel):
             elif context.type == ContextType.IMAGE:
                 cmsg = context["msg"]
                 cmsg.prepare()
-            elif context.type == ContextType.LEAVE_GROUP and config.get("group_chat_exit_group"):
-                reply = Reply()
-                reply.type = ReplyType.INFO
-                reply.content = context.content
+            elif context.type == ContextType.LEAVE_GROUP:
+                if config.get("group_chat_exit_group"):
+                    reply = Reply()
+                    reply.type = ReplyType.INFO
+                    reply.content = context.content
+                else:
+                    pass
             elif context.type == ContextType.FUNCTION or context.type == ContextType.FILE:  # 文件消息及函数调用等，当前无默认逻辑
                 pass
             # 未来可自定义逻辑
