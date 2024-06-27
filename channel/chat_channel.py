@@ -10,7 +10,7 @@ from bridge.context import *
 from bridge.reply import *
 from channel.channel import Channel
 from common.dequeue import Dequeue
-from config import conf
+from config import conf, config
 from plugins import *
 
 try:
@@ -173,9 +173,11 @@ class ChatChannel(Channel):
                 return None  # 忽略或替换为其他处理逻辑
         elif ctype == ContextType.WCPAY:
             pass
-            msg_text = content
+            # msg_text = content
         elif ctype == ContextType.MP:
             return
+        elif ctype == ContextType.LEAVE_GROUP:
+            pass
         elif ctype == ContextType.EXIT_GROUP:
             pass
         elif context.type == ContextType.VOICE:
@@ -243,6 +245,10 @@ class ChatChannel(Channel):
             elif context.type == ContextType.IMAGE:
                 cmsg = context["msg"]
                 cmsg.prepare()
+            elif context.type == ContextType.LEAVE_GROUP and config.get("group_chat_exit_group"):
+                reply = Reply()
+                reply.type = ReplyType.INFO
+                reply.content = context.content
             elif context.type == ContextType.FUNCTION or context.type == ContextType.FILE:  # 文件消息及函数调用等，当前无默认逻辑
                 pass
             # 未来可自定义逻辑

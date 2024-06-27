@@ -261,7 +261,7 @@ class NtchatMessage(ChatMessage):
                     result[room_wxid] = room_members
                 with open(os.path.join(directory, 'wx_room_members.json'), 'w', encoding='utf-8') as f:
                     json.dump(result, f, ensure_ascii=False, indent=4)
-            elif wechat_msg["type"] == 11099:    #  退群或被踢通知
+            elif wechat_msg["type"] == 11099:    #  退群通知
                 self.ctype = ContextType.LEAVE_GROUP
                 self.actual_user_nickname = data['member_list'][0]['nickname']
                 self.content = f"{self.actual_user_nickname}退出了群聊！"
