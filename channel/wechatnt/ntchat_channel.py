@@ -85,7 +85,7 @@ def _check(func):
     return wrapper
 
 # 注册消息回调
-@wechatnt.msg_register([ntchat.MT_RECV_TEXT_MSG, ntchat.MT_RECV_IMAGE_MSG,ntchat.MT_RECV_CARD_MSG,ntchat.MT_RECV_FILE_MSG,ntchat.MT_RECV_LINK_MSG,ntchat.MT_ROOM_DEL_NOTIFY_MSG,
+@wechatnt.msg_register([ntchat.MT_RECV_TEXT_MSG, ntchat.MT_RECV_IMAGE_MSG,ntchat.MT_RECV_CARD_MSG,ntchat.MT_RECV_FILE_MSG,ntchat.MT_RECV_LINK_MSG,
                         ntchat.MT_RECV_VOICE_MSG, ntchat.MT_ROOM_ADD_MEMBER_NOTIFY_MSG, ntchat.MT_RECV_EMOJI_MSG,ntchat.MT_RECV_OTHER_APP_MSG,ntchat.MT_RECV_OTHER_MSG,
                         ntchat.MT_RECV_SYSTEM_MSG,ntchat.MT_RECV_WCPAY_MSG,ntchat.MT_RECV_VIDEO_MSG,ntchat.MT_RECV_MINIAPP_MSG,ntchat.MT_ROOM_DEL_MEMBER_NOTIFY_MSG])
 def all_msg_handler(wechat_instance: ntchat.WeChat, message):
