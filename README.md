@@ -94,7 +94,7 @@ pip3 install azure-cognitiveservices-speech
 ```
 
 然后在`config.json`中填入配置，以下是对默认配置的说明，可根据需要进行自定义修改（请去掉注释）：
-
+更多可选配置项可以参考[config.py](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/config.py)。
 ```json
 # config.json文件内容示例
 {
