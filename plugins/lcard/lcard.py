@@ -34,7 +34,7 @@ class lcard(Plugin):
         context = e_context["context"]
         isgroup = context.get("isgroup", False)
         content = context.content
-        _user_id = e_context['context']['msg'].from_user_id  #####
+        _user_id = e_context['context']['msg'].from_user_id
         to_user_id = e_context['context']['msg'].to_user_id
         logger.debug("[Francis] on_handle_context. content: %s" % content)
         #发送各种榜单
@@ -59,7 +59,7 @@ class lcard(Plugin):
             "b站热榜": "bilibili",
         }
         content = content.strip()
-        reply = Reply()
+
         if content in trending_pinyin:
             trending = trending_pinyin[content]
             url = f"https://rebang.today/home?tab={trending}"
@@ -69,13 +69,12 @@ class lcard(Plugin):
             desc ="涵盖：今日头条、抖音、Github、吾爱、掘金、bilibili、百度、知乎、网易、微博...\n追踪全网热点、简单高效阅读。"
             image_url="https://mmbiz.qpic.cn/sz_mmbiz_jpg/RiacFDBX14xAWVSLByXwA4pg6jickFZQT09smokU52wziaZhibhtkSIBll5wKiawKrDmXWwf1YYGq4ZiaJYGfViaDZDrw/300?wxtype=jpeg&amp;wxfrom=401"
             xml_link = fun.get_xml(url, gh_id, username, title, desc, image_url)
-            reply.type = ReplyType.LINK
-            reply.content = xml_link
+            _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
+            return
         elif content == "新闻直播间":
             video_mp = fun.cctv13_live_xml()
-            reply.type = ReplyType.LINK
-            reply.content = video_mp
-
+            _set_reply_text(video_mp, e_context, level=ReplyType.LINK)
+            return
         elif content.startswith("点歌"):
             keyword = content[2:].replace(" ", "").strip()
             url = f"https://api.52vmy.cn/api/music/qq?msg={keyword}&n=1"
@@ -137,12 +136,11 @@ class lcard(Plugin):
     <appname>QQ音乐</appname>
 </appinfo>
 </msg>"""
-                reply.type = ReplyType.LINK
-                reply.content = card_app
+                _set_reply_text(card_app, e_context, level=ReplyType.LINK)
+                return
             else:
-                reply.type = ReplyType.TEXT
-                reply.content = "未找到该歌曲"
-
+                _set_reply_text("未找到该歌曲", e_context, level=ReplyType.TEXT)
+                return
         #发送天气链接卡片，数据链接msn天气
         elif content.endswith("天气"):
             import  re
@@ -165,17 +163,18 @@ class lcard(Plugin):
                     weather_url = "https://www.msn.cn/zh-cn/weather/"
                     image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/xuic5bNARavt67O3KvoXqjJJanKwRkfIiaJT6Oiavia0icVgC9DWInofCKA655AuicqgdBukd36nFXTqHBUUvfc0uCCQ/300?wxtype=jpeg&amp;wxfrom=401"
                     xml_link = fun.get_xml(weather_url, gh_id, username, title, desc, image_url)
-                    reply.type = ReplyType.LINK
-                    reply.content = xml_link
+                    _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
+                    return
                 else:
-                    reply.type = ReplyType.TEXT
-                    reply.content = f"请按格式输入：城市+天气\n例如：北京天气"
+                    _set_reply_text("请按格式输入：城市+天气\n例如：北京天气", e_context, level=ReplyType.TEXT)
+                    return
+
 
         elif content.startswith("我要吃") or content.startswith("我想吃")  :
             keyword = content[3:].strip()
             xml_app = fun.woyaochi_app(to_user_id,keyword)
-            reply.type = ReplyType.MINIAPP
-            reply.content = xml_app
+            _set_reply_text(xml_app, e_context, level=ReplyType.MINIAPP)
+            return
         elif content.endswith("怎么做"):
             global dish_name
             if content.endswith("怎么做"):
@@ -187,8 +186,8 @@ class lcard(Plugin):
             desc = f"\n🔍️ {dish_name}\n\n\n                    xiachufang.com"
             image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/Uc03FJicJseLq0yQ4JqqiaIIlDB7KuiaNY7ia14ZGCfDeVXktfI9kU6ZGu4659Y3n9CVhP5oKEIYkvXJgDg9WRia5Ng/300?wx_fmt=jpeg&amp;wxfrom=1"
             xml_link = fun.get_xml(url, gh_id, username, title, desc, image_url)
-            reply.type = ReplyType.LINK
-            reply.content = xml_link
+            _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
+            return
 
         huoche_keywords = ["火车票", "高铁票", "动车票"]
         # 用于匹配以火车票关键词结尾的正则表达式
@@ -208,12 +207,10 @@ class lcard(Plugin):
             # 假设以下是调用查询火车票的函数，返回查询结果
             card_app = fun.huochepiao_app(content,departure, arrival, date)  # 你需要用正确的函数替换这里
             # 假设以下代码设置用于回复用户的信息
-            reply.type = ReplyType.MINIAPP
-            reply.content = card_app
-
+            _set_reply_text(card_app, e_context, level=ReplyType.MINIAPP)
+            return
         pattern = r"(\d{4}\.\d{1,2}\.\d{1,2})?\s*(.+)\s*到\s*(.+?)(?:的)?\s*机票$"
         match = re.search(pattern, content)
-
         if match:
             # 提取日期、出发城市和到达城市
             date, departure, arrival = match.groups()
@@ -237,17 +234,13 @@ class lcard(Plugin):
                 if station["name"] == arrival:
                     arrival_code = station["code"]
                     print(f"Found arrival code: {arrival_code}")  # 确认找到目的地代码
-            reply = Reply()
             if departure_code and arrival_code:
                 card_app = fun.air_tickets_app(to_user_id,content, departure_code, departure, arrival_code, arrival, date)
-                reply.type = ReplyType.MINIAPP
-                reply.content = card_app
+                _set_reply_text(card_app, e_context, level=ReplyType.MINIAPP)
+                return
             else:
-                reply.type = ReplyType.TEXT
-                reply.content = "未查到该行程机票信息"
-        e_context["reply"] = reply
-        e_context.action = EventAction.BREAK_PASS  # 事件结束，并跳过处理context的默认逻辑
-
+                _set_reply_text("未查到该行程机票信息", e_context, level=ReplyType.TEXT)
+                return
 
     def get_help_text(self, verbose=False, **kwargs):
         help_text = "发送卡片式链接和小程序"
@@ -255,3 +248,7 @@ class lcard(Plugin):
             return help_text
         help_text = "发送卡片式链接和小程序,可以实现卡片天气，卡片点歌，火车飞机票查询"
         return help_text
+def _set_reply_text(content: str, e_context: EventContext, level: ReplyType = ReplyType.ERROR):
+    reply = Reply(level, content)
+    e_context["reply"] = reply
+    e_context.action = EventAction.BREAK_PASS
