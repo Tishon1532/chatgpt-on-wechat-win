@@ -7,10 +7,10 @@ from channel.wechatnt.nt_run import wechatnt
 from common.log import logger
 import re
 
-def get_xml(url,gh_id,username,title,desc,image_url):
+def get_xml(to_user_id,url,gh_id,username,title,desc,image_url):
     xml_c = f'''<?xml version="1.0"?>
                                             <msg>
-                                    <fromusername>YiYiwanan-1314</fromusername>
+                                    <fromusername>{to_user_id}</fromusername>
                                     <scene>0</scene>
                                     <commenturl></commenturl>
                                     <appmsg appid="" sdkver="0">

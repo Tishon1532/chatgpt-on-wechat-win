@@ -68,7 +68,7 @@ class lcard(Plugin):
             title = "今日热榜-全站榜单 🏆\n🅰🅸 ℝ𝕖𝕓𝕒𝕟𝕘.𝕋𝕠𝕕𝕒𝕪"
             desc ="涵盖：今日头条、抖音、Github、吾爱、掘金、bilibili、百度、知乎、网易、微博...\n追踪全网热点、简单高效阅读。"
             image_url="https://mmbiz.qpic.cn/sz_mmbiz_jpg/RiacFDBX14xAWVSLByXwA4pg6jickFZQT09smokU52wziaZhibhtkSIBll5wKiawKrDmXWwf1YYGq4ZiaJYGfViaDZDrw/300?wxtype=jpeg&amp;wxfrom=401"
-            xml_link = fun.get_xml(url, gh_id, username, title, desc, image_url)
+            xml_link = fun.get_xml(to_user_id,url, gh_id, username, title, desc, image_url)
             _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
             return
         elif content == "新闻直播间":
