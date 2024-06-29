@@ -1,5 +1,6 @@
 {
   "open_ai_api_key": "YOUR API KEY",
+  "open_ai_api_base": "https://api.openai.com/v1",
   "model": "gpt-3.5-turbo",
   "channel_type": "ntchat",
   "proxy": "",
