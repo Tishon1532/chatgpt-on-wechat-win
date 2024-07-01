@@ -286,6 +286,55 @@ def mp3_linK(to_user_id,url=None,thumburl=None):
 </msg>"""
     return card_app
 
+def meituan(to_user_id):
+    card_app = f"""<?xml version="1.0"?>
+<msg>
+	<appmsg appid="" sdkver="0">
+		<title>美团外卖，送啥都快</title>
+		<des>你想吃的，你想喝的：都在美团外卖！赶快下单吧~</des>
+		<type>33</type>
+		<url>https://mp.weixin.qq.com/mp/waerrpage?appid=wx2c348cf579062e56&amp;type=upgrade&amp;upgradetype=3#wechat_redirect</url>
+		<appattach>
+			<cdnthumburl>3057020100044b304902010002041c54444e02032f540602041aee903a0204668263d6042466336361363362342d363833652d343034632d386639612d3733623337333635663639370204051808030201000405004c56fa00</cdnthumburl>
+			<cdnthumbmd5>9c28705f25887d84f7ffac19e9fcc38c</cdnthumbmd5>
+			<cdnthumblength>35122</cdnthumblength>
+			<cdnthumbwidth>420</cdnthumbwidth>
+			<cdnthumbheight>336</cdnthumbheight>
+			<cdnthumbaeskey>c3b2ca749660b8a5cab2ab160e8b8f15</cdnthumbaeskey>
+			<aeskey>c3b2ca749660b8a5cab2ab160e8b8f15</aeskey>
+			<encryver>0</encryver>
+			<filekey>34631202559@chatroom_1754_1719840815</filekey>
+		</appattach>
+		<sourceusername>gh_72a4eb2d4324@app</sourceusername>
+		<sourcedisplayname>美团外卖丨外卖美食奶茶咖啡水果</sourcedisplayname>
+		<md5>9c28705f25887d84f7ffac19e9fcc38c</md5>
+		<weappinfo>
+			<username><![CDATA[gh_72a4eb2d4324@app]]></username>
+			<appid><![CDATA[wx2c348cf579062e56]]></appid>
+			<type>2</type>
+			<version>905</version>
+			<weappiconurl><![CDATA[http://mmbiz.qpic.cn/sz_mmbiz_png/IXJic6HOb8QQia18XFKQC6YwFLUclBz794p2beQpE1XiaqiaKzvhxfrGIJrhcHPibhR22zRMaG1dcSxic16NkmR2kWMg/640?wx_fmt=png&wxfrom=200]]></weappiconurl>
+			<pagepath><![CDATA[pages/index/index.html?from=from_share_index&]]></pagepath>
+			<shareId><![CDATA[0_wx2c348cf579062e56_35977f78867055e7dfabcbc3e04a7182_1719840814_0]]></shareId>
+			<appservicetype>0</appservicetype>
+			<brandofficialflag>0</brandofficialflag>
+			<showRelievedBuyFlag>103967</showRelievedBuyFlag>
+			<hasRelievedBuyPlugin>0</hasRelievedBuyPlugin>
+			<flagshipflag>0</flagshipflag>
+			<subType>0</subType>
+			<isprivatemessage>0</isprivatemessage>
+			<weapppagethumbrawurl><![CDATA[https://p0.meituan.net/travelcube/f722637dc1686b4cdc27a9614d84863c52486.png@420w_340h_1e_1c_1l]]></weapppagethumbrawurl>
+		</weappinfo>
+	</appmsg>
+	<fromusername>{to_user_id}</fromusername>
+	<scene>0</scene>
+	<appinfo>
+		<version>1</version>
+		<appname></appname>
+	</appinfo>
+	<commenturl></commenturl>
+</msg>"""
+    return card_app
 def air_tickets_app(to_user_id,content,departure_code,departure_city,arrive_code,arrive_city,date):
     card_app=f""""<msg>
     <fromusername>{to_user_id}</fromusername>

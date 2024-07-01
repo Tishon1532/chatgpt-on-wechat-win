@@ -188,6 +188,10 @@ class lcard(Plugin):
             xml_link = fun.get_xml(to_user_id,url, gh_id, username, title, desc, image_url)
             _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
             return
+        elif content == "美团外卖":
+            xml_app = fun.meituan(to_user_id)
+            _set_reply_text(xml_app, e_context, level=ReplyType.MINIAPP)
+            return
 
         huoche_keywords = ["火车票", "高铁票", "动车票"]
         # 用于匹配以火车票关键词结尾的正则表达式

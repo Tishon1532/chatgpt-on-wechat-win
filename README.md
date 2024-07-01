@@ -31,6 +31,8 @@
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
+>**2024.07.01：** 修复lcard功能发送失败和导致bot无法回复的问题，修复一出Bug,新增退群提醒开关（务必使用最新版本，否则可能回复不了）
+> 
 >**2024.06.20：** 适配COW的linkai bot,新增支持模型gpt-4o,godcmd增加全局管理员,适配linkai插件,优化Countdown插件.
 
 >**2024.06.18：** 新增lcard插件可发送卡片天气，卡片音乐，小程序。内置群聊邀请插件，私聊下发送`加群`可直接邀请进群。
@@ -219,5 +221,11 @@ pip install ntchat
   </tr>
 </table>
 
+### 常见问题：
+报错如下：
+[ERROR][2023-09-24 15:28:30][app.py:47] - When using pyinstaller to package exe, you need to add the `--collect-data=ntchat` parameter
+
+**解决方法：**[ntchat启动报错](https://github.com/cheungchazz/WeChat-AIChatbot-WinOnly/issues/2)
+ 
 
 个人精力和水平有限，项目还有许多不足，欢迎提出 issues 或 pr。期待你的贡献。
