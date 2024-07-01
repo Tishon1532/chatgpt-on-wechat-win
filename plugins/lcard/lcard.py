@@ -16,7 +16,7 @@ import requests
     desire_priority=100,
     namecn="lcard",
     desc="发送卡片式链接和小程序",
-    version="0.2.1",
+    version="0.2.2",
     author="Francis",
 )
 class lcard(Plugin):
@@ -72,7 +72,7 @@ class lcard(Plugin):
             _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
             return
         elif content == "新闻直播间":
-            video_mp = fun.cctv13_live_xml()
+            video_mp = fun.cctv13_live_xml(to_user_id)
             _set_reply_text(video_mp, e_context, level=ReplyType.LINK)
             return
         elif content.startswith("点歌"):
@@ -162,7 +162,7 @@ class lcard(Plugin):
                     desc = f"\n明天：{second_data_weather}  \n气温：{second_data_temperature}"
                     weather_url = "https://www.msn.cn/zh-cn/weather/"
                     image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/xuic5bNARavt67O3KvoXqjJJanKwRkfIiaJT6Oiavia0icVgC9DWInofCKA655AuicqgdBukd36nFXTqHBUUvfc0uCCQ/300?wxtype=jpeg&amp;wxfrom=401"
-                    xml_link = fun.get_xml(weather_url, gh_id, username, title, desc, image_url)
+                    xml_link = fun.get_xml(to_user_id,weather_url, gh_id, username, title, desc, image_url)
                     _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
                     return
                 else:
@@ -185,7 +185,7 @@ class lcard(Plugin):
             title = "                美食教程"
             desc = f"\n🔍️ {dish_name}\n\n\n                    xiachufang.com"
             image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/Uc03FJicJseLq0yQ4JqqiaIIlDB7KuiaNY7ia14ZGCfDeVXktfI9kU6ZGu4659Y3n9CVhP5oKEIYkvXJgDg9WRia5Ng/300?wx_fmt=jpeg&amp;wxfrom=1"
-            xml_link = fun.get_xml(url, gh_id, username, title, desc, image_url)
+            xml_link = fun.get_xml(to_user_id,url, gh_id, username, title, desc, image_url)
             _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
             return
 
@@ -205,7 +205,7 @@ class lcard(Plugin):
             else:
                 date = datetime.now().strftime("%Y-%m-%d")
             # 假设以下是调用查询火车票的函数，返回查询结果
-            card_app = fun.huochepiao_app(content,departure, arrival, date)  # 你需要用正确的函数替换这里
+            card_app = fun.huochepiao_app(to_user_id,content,departure, arrival, date)  # 你需要用正确的函数替换这里
             # 假设以下代码设置用于回复用户的信息
             _set_reply_text(card_app, e_context, level=ReplyType.MINIAPP)
             return

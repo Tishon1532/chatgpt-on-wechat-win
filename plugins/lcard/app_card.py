@@ -70,9 +70,9 @@ def has_url(content):
     else:
         return False
 
-def cctv13_live_xml():
+def cctv13_live_xml(to_user_id):
     xml_c = f'''<msg>
-    <fromusername>YiYiwanan-1314</fromusername>
+    <fromusername>{to_user_id}</fromusername>
     <scene>0</scene>
     <commenturl></commenturl>
     <appmsg appid="" sdkver="">
@@ -136,9 +136,9 @@ def cctv13_live_xml():
 </msg>'''
     return xml_c
 
-def huochepiao_app(math,toCityName,fromcity,data):
+def huochepiao_app(to_user_id,math,toCityName,fromcity,data):
     card_app=f""""<msg>
-    <fromusername>YiYiwanan-1314</fromusername>
+    <fromusername>{to_user_id}</fromusername>
     <scene>0</scene>
     <commenturl></commenturl>
     <appmsg appid="" sdkver="0">
