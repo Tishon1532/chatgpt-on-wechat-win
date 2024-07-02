@@ -181,7 +181,7 @@ class NtchatChannel(ChatChannel):
     @time_checker
     @_check
     def handle_single(self, cmsg: ChatMessage):
-        print(cmsg)
+        # print(cmsg)
         if cmsg.ctype == ContextType.VOICE:
             if not conf().get("speech_recognition"):
                 return
