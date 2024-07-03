@@ -31,7 +31,7 @@
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
->**2024.07.01：** 修复lcard功能发送失败和导致bot无法回复的问题，修复一出Bug,新增退群提醒开关（务必使用最新版本，否则可能回复不了）
+>**2024.07.01：** 修复lcard功能发送失败和导致bot无法回复的问题，修复一处Bug,新增退群提醒开关（务必使用最新版本，否则可能回复不了）
 > 
 >**2024.06.20：** 适配COW的linkai bot,新增支持模型gpt-4o,godcmd增加全局管理员,适配linkai插件,优化Countdown插件.
 

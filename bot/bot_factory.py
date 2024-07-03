@@ -53,4 +53,7 @@ def create_bot(bot_type):
     elif bot_type == const.GEMINI:
         from bot.gemini.google_gemini_bot import GoogleGeminiBot
         return GoogleGeminiBot()
+    elif bot_type == const.DEEPSEEK:
+        from  bot.deepseek.deepseek_bot import DeepSeekBot
+        return DeepSeekBot()
     raise RuntimeError
