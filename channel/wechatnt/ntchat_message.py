@@ -205,31 +205,39 @@ class NtchatMessage(ChatMessage):
                 appmsg = root.find("appmsg")
                 msg = appmsg.find("title")
                 type = appmsg.find("type")
-                if type.text == "51":    #视频号视频
+                if type.text == "51":  # 视频号视频
                     self.content = xmlContent
                     self.ctype = ContextType.WECHAT_VIDEO
-                elif type.text == "3":     #QQ音乐
+                elif type.text == "3":  # QQ音乐
                     self.content = xmlContent
-                    pass
-                elif type.text == "19" or type.text == "40":     #聊天记录
-                    pass
-                elif type.text == "36" :     #APP小程序
-                    pass
-                elif type.text == "8":     #表情
-                    pass
-                elif type.text == "63":     #微信直播
+                    self.ctype = ContextType.XML
+                elif type.text == "4":  # 腾讯为旗下小弟开的特权卡片，b站，小红书等
                     self.content = xmlContent
-                    self.ctype = ContextType.SYSTEM
-                elif type.text == "21":     #未知
-                    pass
+                    self.ctype = ContextType.XML
+                elif type.text == "19" or type.text == "40":  # 聊天记录
+                    self.content = xmlContent
+                    self.ctype = ContextType.XML
+                elif type.text == "36":  # APP小程序
+                    self.content = xmlContent
+                    self.ctype = ContextType.XML
+                elif type.text == "8":  # 表情
+                    self.content = xmlContent
+                    self.ctype = ContextType.XML
+                elif type.text == "63":  # 微信直播
+                    self.content = xmlContent
+                    self.ctype = ContextType.XML
+                elif type.text == "24":  # 微信收藏
+                    self.content = xmlContent
+                    self.ctype = ContextType.XML
+                elif type.text == "21":  # 未知
+                    self.content = xmlContent
+                    self.ctype = ContextType.XML
                 else:
                     #引用消息类型
                     refermsg = appmsg.find("refermsg")
                     refwxid = refermsg.find("chatusr")
-                    refwxid_text = refwxid.text
                     refname = refermsg.find("displayname")
                     refname_text = refname.text
-
                     if refermsg is not None:
                         if self.is_group:
                             directory = os.path.join(os.getcwd(), "tmp")
@@ -246,7 +254,6 @@ class NtchatMessage(ChatMessage):
                                 self.to_user_id =self.from_user_id
                             print(
                                 f"【{self.actual_user_nickname}】 ID:{self.from_user_id}  引用了 【{self.to_user_nickname}】 ID:{self.to_user_id} 的信息并回复 【{self.content}】")
-
                     else:
                         pass
 
@@ -265,7 +272,6 @@ class NtchatMessage(ChatMessage):
                 self.ctype = ContextType.LEAVE_GROUP
                 self.actual_user_nickname = data['member_list'][0]['nickname']
                 self.content = f"{self.actual_user_nickname}退出了群聊！"
-
             else:
                 raise NotImplementedError(
                     "Unsupported message type: Type:{} MsgType:{}".format(wechat_msg["type"], wechat_msg["type"]))
@@ -287,7 +293,6 @@ class NtchatMessage(ChatMessage):
                     if not self.actual_user_nickname:
                         self.actual_user_nickname = get_display_name_or_nickname(room_members, data.get('room_wxid'),
                                                                                  self.from_user_id)
-
                 else:
                     logger.error("群聊消息中没有找到 conversation_id 或 room_wxid")
 
