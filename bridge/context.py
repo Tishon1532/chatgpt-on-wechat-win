@@ -18,7 +18,7 @@ class ContextType(Enum):
     MINIAPP = 11 # 小程序
     SYSTEM =12 # 系统消息
     WCPAY = 13 # 微信转账
-    MUSIC = 14 #音乐类型
+    XML = 14 # xml卡片(聊天记录,QQ音乐,未知小程序，动画表情，收藏，直播，未知）
     WECHAT_VIDEO = 15 #视频号
     MP = 16 #微信公众号文字消息
     EXIT_GROUP = 18 #踢出群聊
@@ -26,7 +26,8 @@ class ContextType(Enum):
     JOIN_GROUP = 20  # 加入群聊
     PATPAT = 21  # 拍了拍
     FUNCTION = 22  # 函数调用
-    MP_LINK =23  #公众号推文
+    MP_LINK =23  # 公众号推文
+
 
     def __str__(self):
         return self.name
