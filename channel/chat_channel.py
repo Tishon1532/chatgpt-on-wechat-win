@@ -255,6 +255,8 @@ class ChatChannel(Channel):
             elif context.type == ContextType.FUNCTION or context.type == ContextType.FILE:  # 文件消息及函数调用等，当前无默认逻辑
                 pass
             # 未来可自定义逻辑
+            elif context.type == ContextType.XML:
+                pass
             elif context.type == ContextType.LINK:
                 pass
             elif context.type == ContextType.CARD:
