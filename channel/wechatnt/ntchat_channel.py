@@ -311,4 +311,7 @@ class NtchatChannel(ChatChannel):
             logger.info("[WX] sendFile={}, receiver={}".format(reply.content, receiver))
         elif reply.type == ReplyType.LINK:
             wechatnt.send_xml(receiver, reply.content)
-            logger.info("[WX] sendFile={}, receiver={}".format(reply.content, receiver))
+            logger.info("[WX] sendLink={}, receiver={}".format(reply.content, receiver))
+        elif reply.type == ReplyType.XML:
+            wechatnt.send_xml(receiver, reply.content)
+            logger.info("[WX] sendXML={}, receiver={}".format(reply.content, receiver))
