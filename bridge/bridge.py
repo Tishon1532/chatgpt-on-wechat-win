@@ -33,7 +33,7 @@ class Bridge(object):
                 self.btype["text_to_voice"] = const.LINKAI
         if model_type in ["xunfei"]:
             self.btype["chat"] = const.XUNFEI
-        if model_type in [const.GEMINI]:
+        if model_type and model_type.startswith("gemini"):
             self.btype["chat"] = const.GEMINI
         if model_type in [const.CLAUDE3]:
             self.btype["chat"] = const.CLAUDEAPI
