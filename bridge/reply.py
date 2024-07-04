@@ -20,7 +20,8 @@ class ReplyType(Enum):
     MINIAPP = 13  # 小程序
     LINK = 14  #链接
     CALL_UP = 15  #打电话
-    GIF = 16  #发动图
+    GIF = 16  #动图
+    XML = 17 #卡片
 
     def __str__(self):
         return self.name
