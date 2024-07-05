@@ -51,7 +51,7 @@
 **(1) 下载项目代码：**
 
 ```bash
-git clone https://github.com/Tishon1532/chatgpt-on-wechat-win
+git clone https://github.com/benny12388/chatgpt-on-wechat-win.git
 cd chatgpt-on-wechat-win/
 ```
 
