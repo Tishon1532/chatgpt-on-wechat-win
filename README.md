@@ -31,8 +31,10 @@
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
+>**2024.07.07：** 更换失效点歌接口，新增coze模型，适配coze画图功能，新增xml回复类型，更新几个机场信息。
+
 >**2024.07.01：** 修复lcard功能发送失败和导致bot无法回复的问题，修复一处Bug,新增退群提醒开关（务必使用最新版本，否则可能回复不了）
-> 
+
 >**2024.06.20：** 适配COW的linkai bot,新增支持模型gpt-4o,godcmd增加全局管理员,适配linkai插件,优化Countdown插件.
 
 >**2024.06.18：** 新增lcard插件可发送卡片天气，卡片音乐，小程序。内置群聊邀请插件，私聊下发送`加群`可直接邀请进群。
