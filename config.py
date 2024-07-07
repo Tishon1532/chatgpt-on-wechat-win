@@ -14,15 +14,21 @@ available_setting = {
     "open_ai_api_key": "",  # openai api key
     # openai apibase，当use_azure_chatgpt为true时，需要设置对应的api base
     "open_ai_api_base": "https://api.openai.com/v1",
+    # depseek配置
     "deepseek_api_key": "",
     "deepseek_base_url": "https://api.deepseek.com/v1/chat/completions",
-    "claude_api_cookie": "",
+    # gemini配置
     "gemini_api_key": "",
-    "claude_uuid": "",
+    # claude配置
     "claude_api_key": "YOUR API KEY",
+    # 讯飞配置
     "xunfei_app_id": "",  # 讯飞应用ID
     "xunfei_api_key": "",  # 讯飞 API key
     "xunfei_api_secret": "",  # 讯飞 API secret
+    # coze配置
+    "coze_api_base": "https://api.coze.cn/open_api/v2",
+    "coze_api_key": "",# 你的coze api key
+    "coze_bot_id": "",# 你的coze botid
     # 单独配置语音识别api
     "voice_openai_api_key": "",
     "voice_openai_api_base": "",

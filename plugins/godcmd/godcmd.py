@@ -280,7 +280,7 @@ class Godcmd(Plugin):
                         model = user_data["gpt_model"]
                     ok, result = True, "你的GPT模型为" + str(model)
                 elif cmd == "reset":
-                    if bottype in [const.OPEN_AI, const.CHATGPT, const.CHATGPTONAZURE, const.LINKAI,const.CLAUDEAI,const.XUNFEI,const.BAIDU, const.GEMINI,const.DEEPSEEK]:
+                    if bottype in [const.OPEN_AI, const.CHATGPT, const.CHATGPTONAZURE, const.LINKAI,const.CLAUDEAPI,const.XUNFEI,const.BAIDU, const.GEMINI,const.DEEPSEEK,const.COZE]:
                         bot.sessions.clear_session(session_id)
                         channel.cancel_session(session_id)
                         ok, result = True, "会话已重置"
@@ -342,7 +342,7 @@ class Godcmd(Plugin):
                         except Exception as e:
                             ok, result = False, "你没有设置私有GPT模型"
                     elif cmd == "resetall":
-                        if bottype in [const.OPEN_AI, const.CHATGPT, const.CHATGPTONAZURE, const.LINKAI,const.CLAUDEAI,const.XUNFEI,const.BAIDU, const.GEMINI,const.DEEPSEEK]:
+                        if bottype in [const.OPEN_AI, const.CHATGPT, const.CHATGPTONAZURE, const.LINKAI,const.CLAUDEAPI,const.XUNFEI,const.BAIDU, const.GEMINI,const.DEEPSEEK,const.COZE]:
                             channel.cancel_all_session()
                             bot.sessions.clear_all_session()
                             ok, result = True, "重置所有会话成功"

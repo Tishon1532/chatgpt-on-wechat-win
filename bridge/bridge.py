@@ -39,6 +39,8 @@ class Bridge(object):
             self.btype["chat"] = const.CLAUDEAPI
         if model_type in ["deepseek-chat", "deepseek-coder", " DeepSeek-V2"]:
             self.btype["chat"] = const.DEEPSEEK
+        if model_type in [const.COZE]:
+            self.btype["chat"] = const.COZE
         self.bots = {}
         self.chat_bots = {}
 

@@ -56,4 +56,7 @@ def create_bot(bot_type):
     elif bot_type == const.DEEPSEEK:
         from  bot.deepseek.deepseek_bot import DeepSeekBot
         return DeepSeekBot()
+    elif bot_type == const.COZE:
+        from bot.bytedance.bytedance_coze_bot import ByteDanceCozeBot
+        return ByteDanceCozeBot()
     raise RuntimeError

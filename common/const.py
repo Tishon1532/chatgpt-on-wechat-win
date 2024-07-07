@@ -9,6 +9,7 @@ GEMINI = "gemini" # gemini-1.0-pro
 VERSION = "1.3.0"
 CLAUDEAPI= "claudeAPI"
 DEEPSEEK = "deepseek"
+COZE = "coze"
 
 # model
 GPT4o = "gpt-4o"
@@ -26,4 +27,4 @@ WHISPER_1 = "whisper-1"
 TTS_1 = "tts-1"
 TTS_1_HD = "tts-1-hd"
 GPT35 = "gpt-3.5-turbo"
-MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4", "wenxin", "wenxin-4", "xunfei", "gpt-4-turbo","claude", "claude-3-haiku", "claude-3-sonnet", "claude-3-opus", "claude-3-opus-20240229", "claude-3.5-sonnet", GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o,GEMINI, GEMINI_PRO, GEMINI_15_flash, GEMINI_15_PRO]
+MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4", "wenxin", "wenxin-4", "xunfei", "gpt-4-turbo","claude", "claude-3-haiku", "claude-3-sonnet", "claude-3-opus", "claude-3-opus-20240229", "claude-3.5-sonnet", GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o,GEMINI, GEMINI_PRO, GEMINI_15_flash, GEMINI_15_PRO,COZE]
