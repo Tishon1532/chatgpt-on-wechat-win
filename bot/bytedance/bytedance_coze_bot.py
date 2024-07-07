@@ -1,5 +1,5 @@
 # encoding:utf-8
-
+import re
 import time
 from typing import List, Tuple
 
@@ -41,9 +41,33 @@ class ByteDanceCozeBot(Bot):
             )
             self.sessions.session_reply(reply_content["content"], session_id, reply_content["total_tokens"])
             return Reply(ReplyType.TEXT, reply_content["content"])
+        elif context.type == ContextType.IMAGE_CREATE:
+            logger.info("[COZE] painting={}".format(query))
+            session_id = context["session_id"]
+            session = self.sessions.session_query(query, session_id)
+            logger.debug("[COZE] session query={}".format(session.messages))
+            reply_content, err = self._reply_text(session_id, session)
+            if err is not None:
+                logger.error("[COZE] reply error={}".format(err))
+                return Reply(ReplyType.ERROR, "我暂时遇到了一些问题，请您稍后重试~")
+            logger.debug(
+                "[COZE] new_query={}, session_id={}, reply_cont={}, completion_tokens={}".format(
+                    session.messages,
+                    session_id,
+                    reply_content["content"],
+                    reply_content["completion_tokens"],
+                )
+            )
+            self.sessions.session_reply(reply_content["content"], session_id, reply_content["total_tokens"])
+            response = reply_content["content"]
+            if "lf-bot-studio-plugin" in response:
+                relust = remove_markdown(response)
+                url = has_url(relust)
+                return Reply(ReplyType.IMAGE_URL, url)
         else:
             reply = Reply(ReplyType.ERROR, "Bot不支持处理{}类型的消息".format(context.type))
             return reply
+
 
     def _get_api_base_url(self):
         return conf().get("coze_api_base", "https://api.coze.cn/open_api/v2")
@@ -91,10 +115,6 @@ class ByteDanceCozeBot(Bot):
                 return None, f"[COZE] Exception: {repr(e)} 超过最大重试次数"
 
     def _convert_messages_format(self, messages) -> Tuple[str, List[dict]]:
-        # [
-        #     {"role":"user","content":"你好"，"content_type":"text"},
-        #     {"role":"assistant","type":"answer","content":"你好，请问有什么可以帮助你的吗？"，"content_type":"text"}
-        #  ]
         chat_history = []
         for message in messages:
             role = message.get('role')
@@ -135,3 +155,21 @@ class ByteDanceCozeBot(Bot):
         for message in messages:
             prompt_tokens += len(message["content"])
         return completion_tokens, prompt_tokens + completion_tokens
+def remove_markdown(text):
+    # 替换Markdown的粗体标记
+    text = text.replace("**", "")
+    # 替换Markdown的标题标记
+    text = text.replace("### ", "").replace("## ", "").replace("# ", "")
+    # 去除链接外部括号
+    text = re.sub(r'\((https?://[^\s\)]+)\)', r'\1', text)
+    return text
+def has_url(content):
+    # 定义URL匹配的正则表达式模式
+    url_pattern = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    # 使用正则表达式模式进行匹配，找到第一个URL
+    url = re.search(url_pattern, content)
+    # 判断是否存在URL
+    if url:
+        return url.group()
+    else:
+        return False
