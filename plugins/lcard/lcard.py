@@ -142,56 +142,6 @@ class lcard(Plugin):
             else:
                 _set_reply_text("未找到该歌曲", e_context, level=ReplyType.TEXT)
                 return
-        elif content.startswith("搜索"):
-            keyword = content[2:].replace(" ", "").strip()
-            headers = {
-                'Accept': 'application/json, text/plain, */*',
-                'Accept-Encoding': 'gzip, deflate, br, zstd',
-                'Accept-Language': 'zh-CN,zh;q=0.9',
-                'Connection': 'keep-alive',
-                'Content-Type': 'application/json',  # 确保 Content-Type 是 application/json
-                'Cookie': 'JSESSIONID=1CB8D184BF708E7680336789E2CCC1C5; __eventn_id_UMO2dYNwFz=a9f2a3zaqf; tid=6a7c950f-b732-4f57-ad88-3da96e636693; __eventn_id_UMO2dYNwFz_usr=%7B%22email%22%3A%22undefined%40metasota.ai%22%2C%22created_at%22%3A%22Fri%2C%2005%20Jul%202024%2006%3A19%3A25%20GMT%22%7D',
-                'Host': 'metaso.cn',
-                'Origin': 'https://metaso.cn',
-                'Sec-Ch-Ua': '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
-                'Sec-Ch-Ua-Mobile': '?1',
-                'Sec-Ch-Ua-Platform': '"Android"',
-                'Sec-Fetch-Dest': 'empty',
-                'Sec-Fetch-Mode': 'cors',
-                'Sec-Fetch-Site': 'same-origin',
-                'Token': 'wr8+pHu3KYryzz0O2MaBSNUZbVLjLUYC1FR4sKqSW0q7McD9cYp9KtP/JEDdCz85fvC5lkaAZBO4PQuNTExiO6cDNR913DVd0H2pZYy93al/tSOqxwz+wzQAaEEqD2u5LLZMtP9GspxoUWvhjXRyvA==',
-                'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36'
-            }
-
-            # 设置请求载荷
-            payload = {
-                "question": f"{keyword}",
-                "mode": "detail",
-                "engineType": "",
-                "scholarSearchDomain": "all"
-            }
-
-            # 发起 POST 请求
-            response = requests.post('https://metaso.cn/api/session', headers=headers, data=json.dumps(payload))
-
-            # 检查请求是否成功
-            if response.status_code == 200:
-                # 解析 JSON 数据
-                data = response.json()
-                # 打印 id 字段
-                id = data['data']['id']
-                gh_id = "gh_d6931e1cbcd9"
-                username = "秘塔AI搜索"
-                title = "                秘塔AI搜索"
-                desc = f"\n🔍️ {keyword}\n\n                       metaso.cn"
-                image_url = "https://mmbiz.qpic.cn/mmbiz_jpg/Xc8NsmfSF6wswHSTuUMgIjC6F1SslJ3l4SvZCG7ITURSCQrWfHxIssGI5T7316tibiaCrZRm0sSmLXnQDN088icZg/300?wx_fmt=jpeg&amp;wxfrom=1"
-                url = f"https://metaso.cn/search/{id}?q={keyword}"
-                xml_link = fun.get_xml(to_user_id,url, gh_id, username, title, desc, image_url)
-                _set_reply_text(xml_link, e_context, level=ReplyType.LINK)
-                return
-            else:
-                _set_reply_text("抱歉，搜索出错了", e_context, level=ReplyType.TEXT)
-                return
         #发送天气链接卡片，数据链接msn天气
         elif content.endswith("天气"):
             import  re
@@ -296,10 +246,7 @@ class lcard(Plugin):
             else:
                 _set_reply_text("未查到该行程机票信息", e_context, level=ReplyType.TEXT)
                 return
-        elif content == "ce":
-           text=wechatnt.follow_video_blogger("灵绣三都")
-           print(text)
-           e_context.action = EventAction.BREAK_PASS
+
     def get_help_text(self, verbose=False, **kwargs):
         help_text = "发送卡片式链接和小程序"
         if not verbose:
