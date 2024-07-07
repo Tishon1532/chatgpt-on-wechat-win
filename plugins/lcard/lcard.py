@@ -177,9 +177,7 @@ class lcard(Plugin):
             _set_reply_text(xml_app, e_context, level=ReplyType.MINIAPP)
             return
         elif content.endswith("怎么做"):
-            global dish_name
-            if content.endswith("怎么做"):
-                dish_name = content[:-3].strip()
+            dish_name = content[:-3].strip()
             url = f"https://m.xiachufang.com/search/?keyword={dish_name}"
             gh_id = "gh_fbfa5dacde93"
             username = "美食教程"
