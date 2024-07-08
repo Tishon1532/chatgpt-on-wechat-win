@@ -21,13 +21,13 @@
 ```bash
 '''
 {
-  "admin_wxid": ["YOUR_WXID", "OTHER_WXID"]                                  # 填入上面管理员的id，可以是自己也可以是其他人(被转发者），在模式管理员时，只有这个wxid账号发的内容会自动转发
-  "room_wxid": "3450948946@chatroom",                         # romm_wxid代表主群的ID
-  "member_list": [
+  "admin_wxid": ["wxid_123456", "abc123456"]   # 填入上面管理员的id，可以是自己也可以是其他人(被转发者），在模式管理员时，只有这个wxid账号发的内容会自动转发
+  "room_wxid": "3450948946@chatroom",         # romm_wxid代表主群的ID
+  "member_list": [                            # member_list代表副群的群id，可以是多个
             "4497090431@chatroom",
             "3463120559@chatroom"
-        ]                                                     # member_list代表副群的群id，可以是多个
-  "work_mode": 1                                              # 工作模式，即1代表管理员、2代表单向、3代表双向
+        ]                                                   
+  "work_mode": 1                              # 工作模式，即1代表管理员、2代表单向、3代表双向
  }
 ```
 >**如何找群id** 在主项目运行日志里：'room_wxid'即代表每个群的ID。把这个ID填在config.json的room_wxid就代表是主群，填在member_list就代表是副群。

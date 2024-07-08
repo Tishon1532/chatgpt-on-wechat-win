@@ -66,11 +66,6 @@ cd chatgpt-on-wechat-win/
 pip3 install -r requirements.txt
 ```
 
-**(3) 拓展依赖 (可选，建议安装)：**
-
-```bash
-pip3 install -r requirements-optional.txt
-```
 > 如果某项依赖安装失败请注释掉对应的行再继续。
 
 其中`tiktoken`要求`python`版本在3.8以上，它用于精确计算会话使用的tokens数量，强烈建议安装。
