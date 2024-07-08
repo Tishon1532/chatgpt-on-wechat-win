@@ -21,7 +21,7 @@
 ```bash
 '''
 {
-  "admin_wxid": "YOUR WXID",                                  # 填入上面管理员的id，可以是自己也可以是其他人(被转发者），在模式管理员时，只有这个wxid账号发的内容会自动转发
+  "admin_wxid": ["YOUR_WXID", "OTHER_WXID"]                                  # 填入上面管理员的id，可以是自己也可以是其他人(被转发者），在模式管理员时，只有这个wxid账号发的内容会自动转发
   "room_wxid": "3450948946@chatroom",                         # romm_wxid代表主群的ID
   "member_list": [
             "4497090431@chatroom",
