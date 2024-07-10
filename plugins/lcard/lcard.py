@@ -78,14 +78,14 @@ class lcard(Plugin):
             return
         elif content.startswith("点歌"):
             keyword = content[2:].replace(" ", "").strip()
-            url = f"http://api.xtaoa.com/api/musicjx.php?id={keyword}&type=search&media=tencent"
+            url = f"https://api.52vmy.cn/api/music/qq?msg={keyword}&n=1"
             resp1 = requests.get(url)
             data = resp1.json()
-            music_parse = data[0]
-            song_id = music_parse["song_id"]
-            singer=music_parse["author"]
-            song=music_parse["name"]
-            picture=music_parse["cover"]
+            music_parse = data["data"]
+            song_id = music_parse["songid"]
+            singer=music_parse["singer"]
+            song=music_parse["song"]
+            picture=music_parse["picture"]
             if song_id :
                 #以下是xml示例，替换相关参数
                 card_app = f"""<msg>
