@@ -40,7 +40,10 @@ class ByteDanceCozeBot(Bot):
                 )
             )
             self.sessions.session_reply(reply_content["content"], session_id, reply_content["total_tokens"])
-            return Reply(ReplyType.TEXT, reply_content["content"])
+            response = reply_content["content"]
+            relust = remove_markdown(response)
+            return Reply(ReplyType.TEXT, relust)
+
         elif context.type == ContextType.IMAGE_CREATE:
             logger.info("[COZE] painting={}".format(query))
             session_id = context["session_id"]
@@ -162,6 +165,7 @@ def remove_markdown(text):
     text = text.replace("### ", "").replace("## ", "").replace("# ", "")
     # 去除链接外部括号
     text = re.sub(r'\((https?://[^\s\)]+)\)', r'\1', text)
+    text = re.sub(r'\[(https?://[^\s\]]+)\]', r'\1', text)
     return text
 def has_url(content):
     # 定义URL匹配的正则表达式模式
