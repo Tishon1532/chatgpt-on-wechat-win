@@ -34,7 +34,7 @@ available_setting = {
     "voice_openai_api_base": "",
     "proxy": "",  # openai使用的代理
     # chatgpt模型， 当use_azure_chatgpt为true时，其名称为Azure上model deployment名称
-    "model": "gpt-3.5-turbo",    # 还支持 gpt-3.5-turbo-16k, gpt-4, wenxin
+    "model": "gpt-3.5-turbo",    # 可选择: gpt-4o, gpt-4-turbo, claude-3-sonnet, wenxin, moonshot, qwen-turbo, xunfei, glm-4, minimax, gemini,coze等模型，全部可选模型详见common/const.py文件
     "use_azure_chatgpt": False,  # 是否使用azure的chatgpt
     "azure_deployment_id": "",  # azure 模型部署名称
     "azure_api_version": "",  # azure api版本
