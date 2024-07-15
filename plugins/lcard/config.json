@@ -139,6 +139,12 @@
       "duanpin": "dx"
     },
     {
+      "code": "DZH",
+      "quanpin": "dazhou",
+      "name": "达州",
+      "duanpin": "dz"
+    },
+    {
       "code": "DDG",
       "quanpin": "dandong",
       "name": "丹东",
@@ -269,6 +275,12 @@
       "quanpin": "hengyang",
       "name": "衡阳",
       "duanpin": "hy"
+    },
+    {
+      "code": "HUZ",
+      "quanpin": "huizhou",
+      "name": "惠州",
+      "duanpin": "hz"
     },
     {
       "code": "HET",
@@ -474,6 +486,7 @@
       "name": "绵阳",
       "duanpin": "my"
     },
+
     {
       "code": "NZH",
       "quanpin": "manzhouli",
@@ -1161,8 +1174,56 @@
     {
       "code": "ZQZ",
       "quanpin": "zhangjiakoujichang",
-      "name": "张家口机场",
+      "name": "张家口",
       "duanpin": "zjkjc"
+    },
+    {
+      "code": "ZYI",
+      "quanpin": "zunyi",
+      "name": "遵义",
+      "duanpin": "zy"
+    },
+    {
+      "code": "WDS",
+      "quanpin": "shiyan",
+      "name": "十堰",
+      "duanpin": "sy"
+    },
+    {
+      "code": "BAR",
+      "quanpin": "qionghai",
+      "name": "琼海",
+      "duanpin": "qh"
+    },
+    {
+      "code": "LFQ",
+      "quanpin": "linfen",
+      "name": "临汾",
+      "duanpin": "lf"
+    },
+    {
+      "code": "LLV",
+      "quanpin": "lvliang",
+      "name": "吕梁",
+      "duanpin": "ll"
+    },
+    {
+      "code": "BZX",
+      "quanpin": "bazhong",
+      "name": "巴中",
+      "duanpin": "bz"
+    },
+    {
+      "code": "HCZ",
+      "quanpin": "chenzhou",
+      "name": "郴州",
+      "duanpin": "cz"
+    },
+    {
+      "code": "LNL",
+      "quanpin": "longnan",
+      "name": "陇南",
+      "duanpin": "ln"
     },
     {
       "code": "YIC",
@@ -1185,7 +1246,7 @@
     {
       "code": "JUH",
       "quanpin": "chizhoujiuhuashanjichan",
-      "name": "池州九华山机场",
+      "name": "池州九华山",
       "duanpin": "czjhsjc"
     },
     {
@@ -1203,7 +1264,7 @@
     {
       "code": "KJH",
       "quanpin": "kailihuangpingjichang",
-      "name": "凯里黄平机场",
+      "name": "凯里黄平",
       "duanpin": "klhpjc"
     },
     {

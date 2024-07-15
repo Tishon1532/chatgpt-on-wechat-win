@@ -31,6 +31,8 @@
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
+>**2024.07.15：** 同步COW bot模型，ContextType.LINK 改为COW的ContextType.SHARING类型（避免使用一些总结文章插件报错）
+
 >**2024.07.07：** 更换失效点歌接口，新增coze模型，适配coze画图功能，新增xml回复类型，更新几个机场信息。
 
 >**2024.07.01：** 修复lcard功能发送失败和导致bot无法回复的问题，修复一处Bug,新增退群提醒开关（务必使用最新版本，否则可能回复不了）
@@ -65,7 +67,11 @@ cd chatgpt-on-wechat-win/
 ```bash
 pip3 install -r requirements.txt
 ```
+**(3) 拓展依赖 (可选，建议安装)：**
 
+```bash
+pip3 install -r requirements-optional.txt
+```
 > 如果某项依赖安装失败请注释掉对应的行再继续。
 
 其中`tiktoken`要求`python`版本在3.8以上，它用于精确计算会话使用的tokens数量，强烈建议安装。

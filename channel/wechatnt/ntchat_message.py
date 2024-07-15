@@ -160,10 +160,11 @@ class NtchatMessage(ChatMessage):
                     self.content = xmlContent
                 elif name_text == "微信支付":
                     self.content = process_payment_info(msg.text)
-                    self.ctype = ContextType.WCPAY
+                    self.ctype = ContextType.WCPAY  #微信扫码支付成功通知
                 else:
-                    self.ctype = ContextType.LINK #用户转发分享的文章链接类型
-                    self.content = xmlContent
+                    self.ctype = ContextType.SHARING #用户转发分享的文章链接类型
+                    self.content = re.findall(r"<url>(.*?)<\/url>", xmlContent)[0]
+                    print(self.content)
             elif wechat_msg["type"] == 11055:  # 需要缓存文件的消息类型
                 self.ctype = ContextType.FILE
                 self.content = data.get('file')

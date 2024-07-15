@@ -82,6 +82,24 @@ available_setting = {
     "baidu_wenxin_model": "eb-instant", # 默认使用ERNIE-Bot-turbo模型
     "baidu_wenxin_api_key": "", # Baidu api key
     "baidu_wenxin_secret_key": "", # Baidu secret key
+    # 通义千问API, 获取方式查看文档 https://help.aliyun.com/document_detail/2587494.html
+    "qwen_access_key_id": "",
+    "qwen_access_key_secret": "",
+    "qwen_agent_key": "",
+    "qwen_app_id": "",
+    "qwen_node_id": "",  # 流程编排模型用到的id，如果没有用到qwen_node_id，请务必保持为空字符串
+    # 阿里灵积(通义新版sdk)模型api key
+    "dashscope_api_key": "",
+    # 智谱AI 平台配置
+    "zhipu_ai_api_key": "",
+    "zhipu_ai_api_base": "https://open.bigmodel.cn/api/paas/v4",
+    # 月之暗面（kimi） 平台配置
+    "moonshot_api_key": "",
+    "moonshot_base_url": "https://api.moonshot.cn/v1/chat/completions",
+    # Minimax（海螺AI） 平台配置
+    "Minimax_api_key": "",
+    "Minimax_group_id": "",
+    "Minimax_base_url": "",
     # 语音设置
     "speech_recognition": False,  # 是否开启语音识别
     "group_speech_recognition": False,  # 是否开启群组语音识别

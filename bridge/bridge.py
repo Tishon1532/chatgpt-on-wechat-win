@@ -41,6 +41,17 @@ class Bridge(object):
             self.btype["chat"] = const.DEEPSEEK
         if model_type in [const.COZE]:
             self.btype["chat"] = const.COZE
+        if model_type in [const.QWEN]:
+            self.btype["chat"] = const.QWEN
+        if model_type in [const.QWEN_TURBO, const.QWEN_PLUS, const.QWEN_MAX]:
+            self.btype["chat"] = const.QWEN_DASHSCOPE
+        if model_type in [const.ZHIPU_AI]:
+            self.btype["chat"] = const.ZHIPU_AI
+        if model_type in ["moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k"]:
+            self.btype["chat"] = const.MOONSHOT
+
+        if model_type in ["abab6.5-chat"]:
+            self.btype["chat"] = const.MiniMax
         self.bots = {}
         self.chat_bots = {}
 

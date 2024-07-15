@@ -257,7 +257,7 @@ class ChatChannel(Channel):
             # 未来可自定义逻辑
             elif context.type == ContextType.XML:
                 pass
-            elif context.type == ContextType.LINK:
+            elif context.type == ContextType.SHARING:
                 pass
             elif context.type == ContextType.CARD:
                 pass

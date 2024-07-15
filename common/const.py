@@ -10,6 +10,12 @@ VERSION = "1.3.0"
 CLAUDEAPI= "claudeAPI"
 DEEPSEEK = "deepseek"
 COZE = "coze"
+QWEN = "qwen"  # 旧版通义模型
+QWEN_DASHSCOPE = "dashscope"  # 通义新版sdk和api key
+
+ZHIPU_AI = "glm-4"
+MOONSHOT = "moonshot"
+MiniMax = "minimax"
 
 # model
 GPT4o = "gpt-4o"
@@ -23,8 +29,18 @@ LINKAI_4o = "linkai-4o"
 GEMINI_PRO = "gemini-1.0-pro"
 GEMINI_15_flash = "gemini-1.5-flash"
 GEMINI_15_PRO = "gemini-1.5-pro"
+
+
+QWEN_TURBO = "qwen-turbo"
+QWEN_PLUS = "qwen-plus"
+QWEN_MAX = "qwen-max"
+
 WHISPER_1 = "whisper-1"
 TTS_1 = "tts-1"
 TTS_1_HD = "tts-1-hd"
 GPT35 = "gpt-3.5-turbo"
-MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4", "wenxin", "wenxin-4", "xunfei", "gpt-4-turbo","claude", "claude-3-haiku", "claude-3-sonnet", "claude-3-opus", "claude-3-opus-20240229", "claude-3.5-sonnet", GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o,GEMINI, GEMINI_PRO, GEMINI_15_flash, GEMINI_15_PRO,COZE]
+MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4",
+              "wenxin", "wenxin-4", "xunfei", "gpt-4-turbo","claude", "claude-3-haiku", "claude-3-sonnet", "claude-3-opus",
+              "claude-3-opus-20240229", "claude-3.5-sonnet","moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k",
+              GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o,GEMINI, GEMINI_PRO, GEMINI_15_flash, GEMINI_15_PRO,
+              COZE, QWEN, QWEN_TURBO, QWEN_PLUS, QWEN_MAX,MOONSHOT, MiniMax,ZHIPU_AI]

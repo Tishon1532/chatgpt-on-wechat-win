@@ -61,9 +61,12 @@ def num_tokens_from_messages(messages, model):
 
     if model in ["gpt-3.5-turbo-0301", "gpt-35-turbo"]:
         return num_tokens_from_messages(messages, model="gpt-3.5-turbo")
-    elif model in ["gpt-4-0314", "gpt-4-0613", "gpt-4-32k", "gpt-4-32k-0613", "gpt-3.5-turbo-0613", "gpt-3.5-turbo-16k","gpt-3.5-turbo-1106","gpt-3.5-turbo-0125", "gpt-3.5-turbo-16k-0613", "gpt-35-turbo-16k",const.GPT4o, const.GPT4_TURBO, const.GPT4_VISION,const.COZE]:
+    elif model in ["gpt-4-0314", "gpt-4-0613", "gpt-4-32k", "gpt-4-32k-0613", "gpt-3.5-turbo-0613", "gpt-3.5-turbo-16k",
+                   "gpt-3.5-turbo-1106","gpt-3.5-turbo-0125", "gpt-3.5-turbo-16k-0613", "gpt-35-turbo-16k",
+                   const.GPT4o, const.GPT4_TURBO, const.GPT4_VISION,const.COZE,const.LINKAI_4o, const.LINKAI_4_TURBO]:
         return num_tokens_from_messages(messages, model="gpt-4")
-
+    elif model.startswith("claude-3"):
+        return num_tokens_from_messages(messages, model="gpt-3.5-turbo")
     try:
         encoding = tiktoken.encoding_for_model(model)
     except KeyError:

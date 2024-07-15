@@ -55,15 +55,14 @@ class Admin(Plugin):
             ContextType.PATPAT,ContextType.QUOTE
         ]:
             return
-        user_id = e_context['context']['msg'].from_user_id
         context = e_context["context"]
         isgroup = context.get("isgroup", False)
-        content = context.content
+        # content = context.content
+        user_id = e_context['context']['msg'].actual_user_id if isgroup else e_context['context']['msg'].from_user_id
         curdir = os.path.dirname(__file__)
         config_path = os.path.join(curdir, "config.json")
         with open(config_path, "r", encoding="utf-8") as f:
             config = json.load(f)
-            # print(config)
         admin_id = config.get("admin_id", )
         switch = config.get("switch", False)
 
