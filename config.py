@@ -115,8 +115,8 @@ available_setting = {
     # 1536普通话(支持简单的英文识别) 1737英语 1637粤语 1837四川话 1936普通话远场
     "baidu_dev_pid": "1536",
     # azure 语音api配置， 使用azure语音识别和语音合成时需要
-    "azure_voice_api_key": "60096c37cd3146dda0389ca30b86b979",
-    "azure_voice_region": "East US",
+    "azure_voice_api_key": "",
+    "azure_voice_region": "eastus",
     # 服务时间限制，目前支持itchat
     "chat_time_module": False,  # 是否开启服务时间限制
     "chat_start_time": "00:00",  # 服务开始时间
