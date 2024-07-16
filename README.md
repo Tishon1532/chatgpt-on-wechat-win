@@ -31,9 +31,9 @@
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
 # 更新日志
->**2024.07.15：** 同步COW bot模型，ContextType.LINK 改为COW的ContextType.SHARING类型（避免使用一些总结文章插件报错）
+>**2024.07.16：** 同步COW bot模型，ContextType.LINK 改为COW的ContextType.SHARING类型（避免使用一些总结文章插件报错）,修复文字转语音无法播放的问题，azure语音升级为多语言晓晓（有感情）
 
->**2024.07.07：** 更换失效点歌接口，新增coze模型，适配coze画图功能，新增xml回复类型，更新几个机场信息。
+>**2024.07.07：** 更换失效点歌接口，新增coze模型，适配coze画图功能，新增XML回复类型，更新几个机场信息。
 
 >**2024.07.01：** 修复lcard功能发送失败和导致bot无法回复的问题，修复一处Bug,新增退群提醒开关（务必使用最新版本，否则可能回复不了）
 
