@@ -22,7 +22,7 @@
 
 # **详细功能列表：**
 
-- [x] 聊天对话：私聊、群聊对话，支持fastgpt、linkai、openai、azure、文心一言，deepspeek，gemini，claudeapi对话模型通道
+- [x] 聊天对话：私聊、群聊对话，支持fastgpt、coze、linkai、openai、azure、文心一言，通义千问，讯飞星火，ChatGLM-4，MiniMax，deepspeek，gemini，claudeapi，Kimi对话模型通道
 - [x] 语音对话：语音消息可选文字或语音回复，支持 Azure, Openai，Google等语音模型
 - [x] 插件：chatgpt-on-wechat项目的插件可以复制到本项目来使用，也可自行开发插件
 - [x] 高度定制：依赖fastgpt接口，可实现每个群聊对应不同的应用知识库
