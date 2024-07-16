@@ -1,8 +1,9 @@
 """
 pytts voice service (offline)
 """
-
+import datetime
 import os
+import random
 import sys
 import time
 
@@ -35,7 +36,7 @@ class PyttsVoice(Voice):
     def textToVoice(self, text):
         try:
             # Avoid the same filename under multithreading
-            wavFileName = "reply-" + str(int(time.time())) + "-" + str(hash(text) & 0x7FFFFFFF) + ".wav"
+            wavFileName = os.path.join(os.getcwd(), 'tmp', f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000))}.wav")
             wavFile = TmpDir().path() + wavFileName
             logger.info("[Pytts] textToVoice text={} voice file name={}".format(text, wavFile))
 

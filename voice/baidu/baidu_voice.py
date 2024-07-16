@@ -1,8 +1,10 @@
 """
 baidu voice service
 """
+import datetime
 import json
 import os
+import random
 import time
 
 from aip import AipSpeech
@@ -83,7 +85,7 @@ class BaiduVoice(Voice):
         )
         if not isinstance(result, dict):
             # Avoid the same filename under multithreading
-            fileName = TmpDir().path() + "reply-" + str(int(time.time())) + "-" + str(hash(text) & 0x7FFFFFFF) + ".mp3"
+            fileName = os.path.join(os.getcwd(), 'tmp', f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000))}.mp3")
             with open(fileName, "wb") as f:
                 f.write(result)
             logger.info("[Baidu] textToVoice text={} voice file name={}".format(text, fileName))

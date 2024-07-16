@@ -67,7 +67,7 @@ class LinkAIVoice(Voice):
             }
             res = requests.post(url, headers=headers, json=data, timeout=(5, 120))
             if res.status_code == 200:
-                tmp_file_name = "tmp/" + datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000)) + ".mp3"
+                tmp_file_name = os.path.join(os.getcwd(), 'tmp', f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000))}.mp3")
                 with open(tmp_file_name, 'wb') as f:
                     f.write(res.content)
                 reply = Reply(ReplyType.VOICE, tmp_file_name)

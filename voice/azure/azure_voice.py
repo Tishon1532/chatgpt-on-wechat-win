@@ -1,8 +1,10 @@
 """
 azure voice service
 """
+import datetime
 import json
 import os
+import random
 import time
 import re
 import azure.cognitiveservices.speech as speechsdk
@@ -37,9 +39,9 @@ class AzureVoice(Voice):
             config = None
             if not os.path.exists(config_path):  # 如果没有配置文件，创建本地配置文件
                 config = {
-                    "speech_synthesis_voice_name": "zh-CN-XiaoxiaoNeural",  # 识别不出时的默认语音
+                    "speech_synthesis_voice_name": "zh-CN-XiaoxiaoMultilingualNeural",  # 识别不出时的默认语音
                     "auto_detect": True,  # 是否自动检测语言
-                    "speech_synthesis_zh": "zh-CN-XiaozhenNeural",
+                    "speech_synthesis_zh": "zh-CN-XiaoxiaoMultilingualNeural",
                     "speech_synthesis_en": "en-US-JacobNeural",
                     "speech_synthesis_ja": "ja-JP-AoiNeural",
                     "speech_synthesis_ko": "ko-KR-SoonBokNeural",
@@ -89,7 +91,7 @@ class AzureVoice(Voice):
         else:
             self.speech_config.speech_synthesis_voice_name = self.config["speech_synthesis_voice_name"]
         # Avoid the same filename under multithreading
-        fileName = TmpDir().path() + "reply-" + str(int(time.time())) + "-" + str(hash(text) & 0x7FFFFFFF) + ".wav"
+        fileName = os.path.join(os.getcwd(), 'tmp', f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000))}.wav")
         audio_config = speechsdk.AudioConfig(filename=fileName)
         speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=self.speech_config, audio_config=audio_config)
         result = speech_synthesizer.speak_text(text)

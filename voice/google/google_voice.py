@@ -1,7 +1,9 @@
 """
 google voice service
 """
-
+import datetime
+import os
+import random
 import time
 
 import speech_recognition
@@ -36,7 +38,7 @@ class GoogleVoice(Voice):
     def textToVoice(self, text):
         try:
             # Avoid the same filename under multithreading
-            mp3File = TmpDir().path() + "reply-" + str(int(time.time())) + "-" + str(hash(text) & 0x7FFFFFFF) + ".mp3"
+            mp3File = os.path.join(os.getcwd(), 'tmp', f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000))}.mp3")
             tts = gTTS(text=text, lang="zh")
             tts.save(mp3File)
             logger.info("[Google] textToVoice text={} voice file name={}".format(text, mp3File))

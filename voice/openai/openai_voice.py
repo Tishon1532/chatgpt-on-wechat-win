@@ -2,6 +2,7 @@
 google voice service
 """
 import json
+import os
 
 import openai
 
@@ -156,7 +157,7 @@ class OpenaiVoice(Voice):
             language = response_data['language']
             const.LANG = self.get_language_value(language)
             reply = Reply(ReplyType.TEXT, text)
-            logger.info("[Openai] voiceToText language={} text={} voice file name={}".format(const.LANG, text, voice_file))
+            logger.info("[Openai] voiceToText text={} voice file name={}".format(text, voice_file))
         except Exception as e:
             print(e)
             reply = Reply(ReplyType.ERROR, "我暂时还无法听清您的语音，请稍后再试吧~")
@@ -178,7 +179,7 @@ class OpenaiVoice(Voice):
                 'voice': conf().get("tts_voice_id") or "alloy"
             }
             response = requests.post(url, headers=headers, json=data)
-            file_name = "tmp/" + datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000)) + ".mp3"
+            file_name = os.path.join(os.getcwd(), 'tmp', f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(0, 1000))}.mp3")
             logger.debug(f"[OPENAI] text_to_Voice file_name={file_name}, input={text}")
             with open(file_name, 'wb') as f:
                 f.write(response.content)
