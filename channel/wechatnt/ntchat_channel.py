@@ -208,20 +208,24 @@ class NtchatChannel(ChatChannel):
     @_check
     def handle_group(self, cmsg: ChatMessage):
         # print(cmsg)     ##重要~~~！！！！！群聊时测试监听消息专用
-        root_dir=os.path.abspath(os.path.join(os.path.dirname(__file__),"..\.."))
-        base_dir = root_dir+'\plugins\plugins.json'
-        with open(base_dir, "r", encoding="utf-8") as f:
-            config = json.load(f)
-            if config["plugins"]["bridge_room"]["enabled"] == False:
-                pass
-            else:
-                from plugins.bridge_room.main import send_message_synv
-                try:
-                    send_message_synv(cmsg)
-                except Exception as e:
-                    print(e)
 
+        """如果要使用bridge_room插件，需要取消下面这段代码的注释"""
+        # root_dir=os.path.abspath(os.path.join(os.path.dirname(__file__),"..\.."))
+        # base_dir = root_dir+'\plugins\plugins.json'
+        # with open(base_dir, "r", encoding="utf-8") as f:
+        #     config = json.load(f)
+        #     if config["plugins"]["bridge_room"]["enabled"] == False:
+        #         pass
+        #     else:
+        #         from plugins.bridge_room.main import send_message_synv
+        #         try:
+        #             send_message_synv(cmsg)
+        #         except Exception as e:
+        #             print(e)
+
+        """如果要使用bridge_room插件，需要取消上面这段代码的注释"""
         if cmsg.ctype == ContextType.VOICE:
+
             if not conf().get("speech_recognition"):
                 return
             logger.debug("[WX]receive voice for group msg: {}".format(cmsg.content))
