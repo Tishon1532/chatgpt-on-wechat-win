@@ -104,7 +104,7 @@ pip3 install azure-cognitiveservices-speech
 # config.json文件内容示例
 {
   "open_ai_api_key": "YOUR API KEY",                          # 填入上面创建的 OpenAI API KEY
-  "model": "gpt-3.5-turbo",                                   # 模型名称。当use_azure_chatgpt为true时，其名称为Azure上model deployment名称
+  "model": "gpt-4o-mini",                                     # 模型名称。当use_azure_chatgpt为true时，其名称为Azure上model deployment名称
   "proxy": "",                                                # 代理客户端的ip和端口，国内环境开启代理的需要填写该项，如 "127.0.0.1:7890"
   "single_chat_prefix": ["bot", "@bot"],                      # 私聊时文本需要包含该前缀才能触发机器人回复
   "single_chat_reply_prefix": "[bot] ",                       # 私聊时自动回复的前缀，用于区分真人
@@ -131,7 +131,7 @@ pip3 install azure-cognitiveservices-speech
   "fastgpt_list": {
         "R:108864****63985": "fastgpt-1aps*****pg47-64b16a*******181317",
         "R:107******373863": "fastgpt-1aps8*****gni1kpg47-64b168*****cd181267"
-    },							# 每个群聊ID配置对应的key即可实现单群单知识库，未配置的默认
+    },							    # 每个群聊ID配置对应的key即可实现单群单知识库，未配置的默认
   "voice_openai_api_key": "",		# 使用了fasgpt仍然有openai语音识别需求的，要在这里配置一下openai的参数
   "voice_openai_api_base": "",		# 使用了fasgpt仍然有openai语音识别需求的，要在这里配置一下openai的参数
  }
