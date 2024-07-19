@@ -397,34 +397,35 @@ class Godcmd(Plugin):
                             ok, result = False, "请提供插件名"
                         else:
                             ok, result = PluginManager().enable_plugin(args[0])
-                    #20231106添加群聊转发
-                    elif cmd == "bridge_room":
-                        from plugins.bridge_room.main import change_work_mode
-                        if args[0] == "管理员":
-                            # 管理员模式，work_mode置为1
-                            ok, result = True, change_work_mode(1)
+                    #如需使用bridge_room插件请取消下面注释
+                    # elif cmd == "bridge_room":
+                    #     from plugins.bridge_room.main import change_work_mode
+                    #     if args[0] == "管理员":
+                    #         # 管理员模式，work_mode置为1
+                    #         ok, result = True, change_work_mode(1)
+                    #
+                    #     elif args[0] == "单向":
+                    #         # work_mode置为2
+                    #         ok, result = True, change_work_mode(2)
+                    #     elif args[0] == "双向":
+                    #         # work_mode置为3
+                    #         ok, result = True, change_work_mode(3)
+                    #     elif args[0] == "反向":
+                    #         # work_mode置为4
+                    #         ok, result = True, change_work_mode(4)
+                    #     elif args[0] == "关键词":
+                    #         # work_mode置为5
+                    #         ok, result = True, change_work_mode(5)
+                    # elif cmd == "disablep":
+                    #     if len(args) != 1:
+                    #         ok, result = False, "请提供插件名"
+                    #     else:
+                    #         ok = PluginManager().disable_plugin(args[0])
+                    #         if ok:
+                    #             result = "插件已禁用"
+                    #         else:
+                    #             result = "插件不存在"
 
-                        elif args[0] == "单向":
-                            # work_mode置为2
-                            ok, result = True, change_work_mode(2)
-                        elif args[0] == "双向":
-                            # work_mode置为3
-                            ok, result = True, change_work_mode(3)
-                        elif args[0] == "反向":
-                            # work_mode置为4
-                            ok, result = True, change_work_mode(4)
-                        elif args[0] == "关键词":
-                            # work_mode置为5
-                            ok, result = True, change_work_mode(5)
-                    elif cmd == "disablep":
-                        if len(args) != 1:
-                            ok, result = False, "请提供插件名"
-                        else:
-                            ok = PluginManager().disable_plugin(args[0])
-                            if ok:
-                                result = "插件已禁用"
-                            else:
-                                result = "插件不存在"
                     elif cmd == "installp":
                         if len(args) != 1:
                             ok, result = False, "请提供插件名或.git结尾的仓库地址"
