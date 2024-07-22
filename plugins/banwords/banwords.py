@@ -91,7 +91,7 @@ class Banwords(Plugin):
                     try:
                         logger.info("[Banwords] Writing to config_path: %s" % self.config_path)
                         with open(self.config_path, "w", encoding="utf-8") as f:
-                            json.dump(self.conf, f, indent=4)
+                            json.dump(self.conf, f, indent=4,ensure_ascii=False)
                     except Exception as e:
                         logger.error("[Banwords] Error occurred: %s" % str(e))
                     reply = Reply(ReplyType.INFO, "发言中包含敏感词\n累计违规三次将自动拉入黑名单")
