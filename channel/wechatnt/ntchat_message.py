@@ -152,7 +152,7 @@ class NtchatMessage(ChatMessage):
                 root = ET.XML(xmlContent)
                 appmsg = root.find("appmsg")
                 msg = appmsg.find("des")
-                type = appmsg.find("type")
+                # type = appmsg.find("type")
                 name = root.find(".//mmreader/category/name")
                 name_text = name.text if name is not None else None
                 if "gh_"in from_wxid and name_text != "微信支付" :
@@ -164,7 +164,6 @@ class NtchatMessage(ChatMessage):
                 else:
                     self.ctype = ContextType.SHARING #用户转发分享的文章链接类型
                     self.content = re.findall(r"<url>(.*?)<\/url>", xmlContent)[0]
-                    print(self.content)
             elif wechat_msg["type"] == 11055:  # 需要缓存文件的消息类型
                 self.ctype = ContextType.FILE
                 self.content = data.get('file')
@@ -273,6 +272,13 @@ class NtchatMessage(ChatMessage):
                 self.ctype = ContextType.LEAVE_GROUP
                 self.actual_user_nickname = data['member_list'][0]['nickname']
                 self.content = f"{self.actual_user_nickname}退出了群聊！"
+                directory = os.path.join(os.getcwd(), "tmp")
+                result = {}
+                for room_wxid in rooms.keys():
+                    room_members = wechatnt.get_room_members(room_wxid)
+                    result[room_wxid] = room_members
+                with open(os.path.join(directory, 'wx_room_members.json'), 'w', encoding='utf-8') as f:
+                    json.dump(result, f, ensure_ascii=False, indent=4)
             else:
                 raise NotImplementedError(
                     "Unsupported message type: Type:{} MsgType:{}".format(wechat_msg["type"], wechat_msg["type"]))
