@@ -28,10 +28,16 @@ def download_and_compress_image(url, filename, quality=80):
     # 下载图片
     response = requests.get(url)
     image = Image.open(io.BytesIO(response.content))
+    image_format = image.format
 
-    # 压缩图片
-    image_path = os.path.join(directory, f"{filename}.jpg")
-    image.save(image_path, "JPEG", quality=quality)
+    # 确定保存路径
+    if image_format == 'PNG':
+        image_path = os.path.join(directory, f"{filename}.png")
+        image.save(image_path, format='PNG')
+    else:
+        image_path = os.path.join(directory, f"{filename}.jpg")
+        image = image.convert('RGB')  # 确保图片是RGB模式
+        image.save(image_path, format='JPEG', quality=quality)
 
     return image_path
 
@@ -53,7 +59,7 @@ def download_video(url, filename):
         for block in response.iter_content(1024):
             total_size += len(block)
 
-            # 如果视频的总大小超过30MB (30 * 1024 * 1024 bytes)，则停止下载并返回
+            # 如果视频的总大小超过300MB (300 * 1024 * 1024 bytes)，则停止下载并返回
             if total_size > 300 * 1024 * 1024:
                 logger.info("[WX] Video is larger than 30MB, skipping...")
                 return None
