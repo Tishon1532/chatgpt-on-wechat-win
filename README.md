@@ -30,6 +30,11 @@
 # **交流群：**
 ![](https://github.com/Tishon1532/chatgpt-on-wechat-win/blob/master/docs/images/10.jpg)
 
+
+### 💡常见问题：
+
+**CoWW 常见问题：**[👉🏼戳我查看解决方案](https://github.com/Tishon1532/chatgpt-on-wechat-win/wiki/COWW-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
+ 
 # 更新日志
 >**2024.07.16：** 同步COW bot模型，ContextType.LINK 改为COW的ContextType.SHARING类型（避免使用一些总结文章插件报错）,修复文字转语音无法播放的问题，azure语音升级为多语言晓晓（有感情）
 
@@ -224,11 +229,5 @@ pip install ntchat
   </tr>
 </table>
 
-### 常见问题：
-报错如下：
-[ERROR][2023-09-24 15:28:30][app.py:47] - When using pyinstaller to package exe, you need to add the `--collect-data=ntchat` parameter
-
-**解决方法：**[ntchat启动报错](https://github.com/cheungchazz/WeChat-AIChatbot-WinOnly/issues/2)
- 
 
 个人精力和水平有限，项目还有许多不足，欢迎提出 issues 或 pr。期待你的贡献。
