@@ -74,4 +74,7 @@ def create_bot(bot_type):
     elif bot_type == const.MiniMax:
         from bot.minimax.minimax_bot import MinimaxBot
         return MinimaxBot()
+    elif bot_type == const.DIFY:
+        from bot.dify.dify_bot import DifyBot
+        return DifyBot()
     raise RuntimeError

@@ -16,6 +16,7 @@ QWEN_DASHSCOPE = "dashscope"  # 通义新版sdk和api key
 ZHIPU_AI = "glm-4"
 MOONSHOT = "moonshot"
 MiniMax = "minimax"
+DIFY = "dify"
 
 # model
 GPT4o = "gpt-4o"
@@ -43,5 +44,5 @@ GPT35 = "gpt-3.5-turbo"
 MODEL_LIST = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k","gpt-3.5-turbo-0125", "gpt-3.5-turbo-1106","gpt-4",
               "wenxin", "wenxin-4", "xunfei", "gpt-4-turbo","claude", "claude-3-haiku", "claude-3-sonnet", "claude-3-opus",
               "claude-3-opus-20240229", "claude-3.5-sonnet","moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k",
-              GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,GPT4o_MINI,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o,GEMINI, GEMINI_PRO, GEMINI_15_flash, GEMINI_15_PRO,
+              DIFY,GEMINI,GPT4_TURBO,GPT4_VISION,DEEPSEEK,GPT4o,GPT4o_MINI,LINKAI_35, LINKAI_4_TURBO, LINKAI_4o,GEMINI, GEMINI_PRO, GEMINI_15_flash, GEMINI_15_PRO,
               COZE, QWEN, QWEN_TURBO, QWEN_PLUS, QWEN_MAX,MOONSHOT, MiniMax,ZHIPU_AI]

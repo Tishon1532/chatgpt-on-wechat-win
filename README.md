@@ -36,7 +36,7 @@
 **CoWW 常见问题：**[👉🏼戳我查看解决方案](https://github.com/Tishon1532/chatgpt-on-wechat-win/wiki/COWW-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
  
 # 更新日志
->**2024.08.07：** 新增模型gpt-4o-mini、Spark4.0 Ultra模型，修复png图片格式发送失败。
+>**2024.08.08：** 新增模型:gpt-4o-mini、Spark4.0 Ultra，新增bot:dify，修复png图片格式发送失败。
 
 >**2024.07.16：** 同步COW bot模型，ContextType.LINK 改为COW的ContextType.SHARING类型（避免使用一些总结文章插件报错）,修复文字转语音无法播放的问题，azure语音升级为多语言晓晓（有感情）
 

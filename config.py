@@ -31,6 +31,9 @@ available_setting = {
     "coze_api_base": "https://api.coze.cn/open_api/v2",
     "coze_api_key": "",# 你的coze api key
     "coze_bot_id": "",# 你的coze botid
+    # dify配置
+    "dify_app_type": "chatbot",  # dify助手类型 chatbot(对应聊天助手)/agent(对应Agent)/workflow(对应工作流)，默认为chatbot
+    "dify_convsersation_max_messages": 5,  # dify目前不支持设置历史消息长度，暂时使用超过最大消息数清空会话的策略，缺点是没有滑动窗口，会突然丢失历史消息
     # 单独配置语音识别api
     "voice_openai_api_key": "",
     "voice_openai_api_base": "",
