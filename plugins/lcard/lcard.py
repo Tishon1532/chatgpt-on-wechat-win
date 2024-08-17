@@ -1,14 +1,10 @@
 # encoding:utf-8
 import datetime
-import threading
-import time
 from datetime import datetime
 import plugins
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from channel.chat_message import ChatMessage
 import plugins.lcard.app_card as fun
-from channel.wechatnt.nt_run import wechatnt
 from plugins import *
 import requests
 
@@ -17,7 +13,7 @@ import requests
     desire_priority=100,
     namecn="lcard",
     desc="发送卡片式链接和小程序",
-    version="0.2.2",
+    version="0.2.3",
     author="Francis",
 )
 class lcard(Plugin):
@@ -78,15 +74,20 @@ class lcard(Plugin):
             return
         elif content.startswith("点歌"):
             keyword = content[2:].replace(" ", "").strip()
-            url = f"https://api.52vmy.cn/api/music/qq?msg={keyword}&n=1"
+            url = f"https://api.lolimi.cn/API/yiny/?word={keyword}&n=1"
             resp1 = requests.get(url)
             data = resp1.json()
             music_parse = data["data"]
-            song_id = music_parse["songid"]
+            song_link = music_parse["link"]
+            pattern = r'songmid=([^&]+)'
+
+            import re
+            #提取歌曲的Id
+            song_id = re.search(pattern, song_link)
             singer=music_parse["singer"]
             song=music_parse["song"]
-            picture=music_parse["picture"]
-            if song_id :
+            picture=music_parse["cover"]
+            if song_link :
                 #以下是xml示例，替换相关参数
                 card_app = f"""<msg>
 <fromusername>{to_user_id}</fromusername>
@@ -99,7 +100,7 @@ class lcard(Plugin):
     <type>3</type>
     <showtype>0</showtype>
     <content></content>
-    <url>http://c.y.qq.com/v8/playsong.html?songmid={song_id}</url>
+    <url>http://c.y.qq.com/v8/playsong.html?songmid={song_id.group(1)}</url>
     <dataurl>http://wx.music.tc.qq.com/C4000015IWzW2NC8oN.m4a?guid=2000000280&amp;vkey=D42EDA8187C9697F31ED99CD9B3635DFBD3DAE29E4E8CF0EA549F2F247464072D17D5516DBBA34BB26D906D69E5E28239E0D557EEC5311BC&amp;uin=0&amp;fromtag=30280&amp;trace=772d0804e4366763</dataurl>
     <lowurl></lowurl>
     <lowdataurl></lowdataurl>
