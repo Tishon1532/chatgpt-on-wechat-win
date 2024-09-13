@@ -313,6 +313,7 @@ class ChatChannel(Channel):
                         reply = super().build_text_to_voice(reply.content)
                         return self._decorate_reply(context, reply)
                     if context.get("isgroup", False):
+                        nickname = context["msg"].actual_user_nickname if context["msg"].actual_user_nickname is not None else "未知用户" #注释：错误发生是因为代码试图将一个 NoneType 与字符串进行拼接。最有可能的原因是 msg 对象的 actual_user_nickname 属性为 None。相应进行修改制定格式不为None。
                         reply_text = "@" + context["msg"].actual_user_nickname + "\n" + reply_text.strip()
                         reply_text = conf().get("group_chat_reply_prefix", "") + reply_text + conf().get(
                             "group_chat_reply_suffix", "")
